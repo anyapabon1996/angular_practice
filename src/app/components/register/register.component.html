@@ -1,0 +1,102 @@
+<main>
+
+  <section class="form-container">
+
+    <form [formGroup]="registerForm">
+
+      <!-- Image -->
+      <div class="col-auto image">
+        <img src="../../../assets/icon-login.png" id="icon" alt="User Icon" />
+      </div>
+
+      <!-- User name -->
+      <div class="row g-3 align-items-center form-group">
+
+        <div class="col-auto">
+          <label for="userName" class="col-form-label">User Name</label>
+        </div>
+
+        <div class="col-auto">
+          <input type="text" class="form-control" formControlName="userName">
+        </div>
+
+        <!-- User Validation -->
+        <div class="pop-alert">
+          <div class="alert alert-danger" *ngIf="registerForm.controls['userName'].invalid && (registerForm.controls['userName'].dirty || registerForm.controls['userName'].touched)">
+
+            <div *ngIf="registerForm.controls['userName'].hasError('required')">
+              User name is mandatory
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Password -->
+      <div class="row g-3 align-items-center form-group">
+        <div class="col-auto password">
+          <label for="inputPassword6" class="col-form-label">Password</label>
+        </div>
+
+        <div class="col-auto">
+          <input type="password" id="inputPassword6" class="form-control" aria-describedby="passwordHelpInline" formControlName="password">
+        </div>
+
+        <!-- Password Validation -->
+        <div class="pop-alert">
+          <div class ="alert alert-danger" *ngIf="registerForm.controls['password'].invalid && (registerForm.controls['password'].dirty || registerForm.controls['password'].touched)">
+
+            <div *ngIf="registerForm.controls['password'].hasError('required')">
+              Input a password
+            </div>
+
+            <div *ngIf="registerForm.controls['password'].hasError('minlength')">
+              Password must has at least 8 characters
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Email -->
+      <div class="row g-3 align-items-center form-group">
+
+        <div class="col-auto email">
+          <label for="email" class="col-form-label">Email</label>
+        </div>
+
+        <div class="col-auto">
+          <input type="email" id="email" class="form-control" aria-describedby="email" formControlName="email">
+        </div>
+
+        <!-- Email Validation -->
+        <div class="pop-alert">
+          <div class="alert alert-danger" *ngIf="registerForm.controls['email'].invalid && (registerForm.controls['email'].dirty || registerForm.controls['email'].touched)">
+
+            <div *ngIf="registerForm.controls['email'].hasError('email')">
+              Write a valid email address
+            </div>
+
+            <div *ngIf="registerForm.controls['email'].hasError('required')">
+              Add an email address
+            </div>
+
+          </div>
+        </div>
+
+
+      </div>
+
+      <!-- Button Send -->
+      <div class="btn-send row">
+        <button class="btn btn-primary" (click)="sendRegister()" [disabled]="registerForm.invalid">Sign up</button>
+      </div>
+
+    </form>
+
+  </section>
+
+</main>
+

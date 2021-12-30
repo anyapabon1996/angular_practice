@@ -1,0 +1,61 @@
+main{
+
+  display: flex;
+  justify-content: center;
+  margin: 2rem auto;
+
+  .form-container{
+    display: flex;
+    justify-content: center;
+
+    // background-color: antiquewhite;
+    width: 70%;
+
+    form {
+
+      .image {
+        text-align: center;
+      }
+
+      .row {
+        margin: 0.5rem auto;
+
+        .pop-alert{
+
+          display:flex;
+          justify-content: center;
+
+          .alert-danger{
+            width: fit-content;
+          }
+        }
+
+        .password {
+          padding-right: 1.1rem;
+        }
+
+        .email{
+          padding-right: 3rem;
+        }
+
+        }
+
+        .btn-send{
+
+          display: flex;
+          justify-content: center;
+
+          button {
+            border-radius: 3rem;
+            width: 10rem;
+            padding: 0.3rem;
+          }
+
+          .btn-primary{
+            background-color: rgb(182, 0, 9);
+            border: 1px solid rgba(138, 5, 27, 0.678);
+          }
+      }
+    }
+  }
+}
