@@ -1,0 +1,83 @@
+<section class="card-container">
+
+  <div class="card" style="width: 18rem;">
+    <img class="card-img-top" [src]="movie.Poster" alt="Card image cap">
+    <div class="card-body">
+      <h5 class="card-title">{{movie.Title}}</h5>
+      <p class="card-text">{{movie.Plot}}</p>
+
+      <div class="btn-container">
+        <button class="btn btn-info" (click)="addToCart()">Add to cart</button>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="info">
+
+    <div class="pseudolcontainer">
+      <div class="col-auto">
+        <span class="psudolabel">Premiere</span>
+      </div>
+      <div class="col-auto">
+        <span>{{movie.DVD}}</span>
+      </div>
+    </div>
+
+    <div class="pseudolcontainer">
+      <div class="col-auto">
+        <span class="psudolabel">Witer</span>
+      </div>
+      <div class="col-auto">
+        <span>{{movie.Writer}}</span>
+      </div>
+    </div>
+
+    <div class="pseudolcontainer">
+      <div class="col-auto">
+        <span class="psudolabel">Director</span>
+      </div>
+      <div class="col-auto">
+        <span>{{movie.Director}}</span>
+      </div>
+    </div>
+
+    <div class="pseudolcontainer">
+      <div class="col-auto">
+        <span class="psudolabel">Duration</span>
+      </div>
+      <div class="col-auto">
+        <span>{{movie.Runtime}}</span>
+      </div>
+    </div>
+
+    <div class="pseudolcontainer">
+      <div class="col-auto">
+        <span class="psudolabel">Genero</span>
+      </div>
+      <div class="col-auto">
+        <span>{{movie.Genre}}</span>
+      </div>
+    </div>
+
+    <div class="pseudolcontainer">
+      <div class="col-auto">
+        <span class="psudolabel">Actors</span>
+      </div>
+      <div class="col-auto">
+        <span>{{movie.Actors}}</span>
+      </div>
+    </div>
+
+    <div class="pseudolcontainer">
+      <div class="col-auto">
+        <span class="psudolabel">Awards</span>
+      </div>
+      <div class="col-auto">
+        <span>{{movie.Awards}}</span>
+      </div>
+    </div>
+
+  </div>
+
+</section>

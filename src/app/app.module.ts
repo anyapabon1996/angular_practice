@@ -7,20 +7,28 @@ import { RegisterComponent } from './components/register/register.component';
 import { MoviesComponent } from './components/movies/movies.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MenuComponent } from './components/menu/menu.component';
-import { HttpClient } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MaterialModule } from './material/material.module';
+import { InfoComponent } from './components/info/info.component';
+import { CartComponent } from './components/cart/cart.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     RegisterComponent,
     MoviesComponent,
-    MenuComponent
+    MenuComponent,
+    InfoComponent,
+    CartComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    HttpClient
+    HttpClientModule,
+    BrowserAnimationsModule,
+    MaterialModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

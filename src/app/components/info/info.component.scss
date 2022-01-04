@@ -1,0 +1,31 @@
+.card-container{
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+
+  .card{
+    margin-right: 4rem;
+
+    .card-body{
+
+      .btn-container{
+
+        text-align: center;
+      }
+    }
+  }
+
+  .info {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+
+    .pseudolcontainer{
+      padding: 0.3rem 0;
+
+      .psudolabel{
+        font-weight: bolder;
+      }
+    }
+  }
+}

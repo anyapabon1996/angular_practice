@@ -1,0 +1,46 @@
+<div class="container">
+
+  <h1>Shopping Cart</h1>
+
+<table class="table">
+
+  <thead>
+
+    <tr>
+
+      <th scope="col">#</th>
+
+      <th scope="col">Image</th>
+
+      <th scope="col">Movie</th>
+
+      <th scope="col">Amount</th>
+
+    </tr>
+
+  </thead>
+
+  <tbody >
+
+
+    <tr *ngFor="let movie of allMoviesInCart; let i = index">
+
+      <th scope="row">{{i+1}}</th>
+
+      <td><img [src]="movie.url" alt="movie.title" style="height: 120px;"></td>
+
+      <td>{{movie.title}}</td>
+
+      <td>{{movie.price}}</td>
+
+      <td><button button type="button" class="btn btn-danger" (click)="deleteMovies(movie.id)">Delete</button></td>
+
+    </tr>
+
+    <button type="submit" class="btn btn-primary btn-block">Rent</button>
+
+  </tbody>
+
+</table>
+
+</div>

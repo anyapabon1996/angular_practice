@@ -1,0 +1,21 @@
+<section class="row d-flex justify-content-evenly all-images">
+
+  <div class="card movie-card" style="width: 15rem;" *ngFor="let movie of allMovies;  let i = index">
+
+    <div class="card-body">
+      <h5 class="card-title text-center">{{movie.Title}}</h5>
+      <p class="card-text text-center">{{movie.Year}}</p>
+    </div>
+
+    <img [src]="movie.Poster" class="card-img-top animales-img" [alt]="movie">
+
+    <div class="card-body">
+      <p class="card-text text-center">{{movie.Type}}</p>
+    </div>
+
+    <button class="btn btn-primary btn-movie" (click)="getInfo(movie.imdbID)">Info</button>
+
+  </div>
+
+</section>
+
