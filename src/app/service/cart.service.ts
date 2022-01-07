@@ -16,7 +16,7 @@ export class CartService {
   ) { }
 
   //Variable de conexion api
-  private url = environment.APIrestURL + 'cart';
+  private url = environment.apiCart;
 
   //Metodo para obtener pelis en el carrito
   getCartMovies(): Observable<ICart[]> {
@@ -25,8 +25,6 @@ export class CartService {
 
   //Metooo Post: agrega al carrito
   postMovieInCar(movie : ICart): Observable<ICart> {
-
-    console.log(movie);
 
     return this.httpClient.post<ICart>(this.url, movie);
   }

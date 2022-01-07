@@ -9,6 +9,7 @@ export const environment = {
   movieAPIfisrtPart : 'http://www.omdbapi.com/',
   apiKey : '&apikey=4e13f104',
   // : '&apikey=4e13f104&page=',
+  apiCart : 'http://localhost:5050/api/cart'
 };
 
 /*

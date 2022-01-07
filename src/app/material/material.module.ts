@@ -1,7 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MoviesService } from '../service/movies.service';
-import {MatCardModule} from '@angular/material/card';
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
+import {MatButtonModule} from '@angular/material/button';
+
+
 
 
 @NgModule({
@@ -12,9 +16,13 @@ import {MatCardModule} from '@angular/material/card';
   ],
   exports: [
     MatCardModule,
+    MatIconModule,
+    MatButtonModule,
   ],
   providers: [
-    MoviesService
+    MoviesService,
+    MatIconModule,
+    MatButtonModule
   ]
 })
 export class MaterialModule { }

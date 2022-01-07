@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ICart } from 'src/app/models/cart.model';
-import { IMovie, IOnlyMovie } from 'src/app/models/movie.model';
+import { IOnlyMovie } from 'src/app/models/movie.model';
 import { CartService } from 'src/app/service/cart.service';
 import { InfoService } from 'src/app/service/info.service';
 
@@ -11,6 +11,7 @@ import { InfoService } from 'src/app/service/info.service';
   templateUrl: './info.component.html',
   styleUrls: ['./info.component.scss']
 })
+
 export class InfoComponent implements OnInit , OnDestroy{
 
   constructor(
@@ -22,10 +23,13 @@ export class InfoComponent implements OnInit , OnDestroy{
 
     //Inyecion del servicio carrito
     private cartService : CartService,
+
+    //Inyeccion delm servicio de ruteo
+    private router : Router,
   ) { }
 
   //Variable suscripcion
-  private subscription : Subscription | undefined;
+  private subscription = new Subscription;
 
   //Variable a recibir la movie del click
   movie! : IOnlyMovie;
@@ -36,20 +40,26 @@ export class InfoComponent implements OnInit , OnDestroy{
     title : '',
     url : '',
     price : 0,
-    imdbID : ''
+    imdbID : '',
+    exists: false
   }
+
+  //Variable auxiliar
+  allMoviesInCart : ICart[] = [];
 
   ngOnInit(): void {
 
     //Pasamos la peli del evento click
-    this.subscription = this.infoService.getMovieById(this.activatedRouter.snapshot.params['id']).
+    this.subscription.add(this.infoService.getMovieById(this.activatedRouter.snapshot.params['id']).
       subscribe(movies => {
           if (movies != undefined){
             this.movie = movies;
             console.log(this.movie);
           }
           else alert ("This movie doesn't exits")
-        });
+        }));
+
+    this.cartService.getCartMovies().subscribe(movie => this.allMoviesInCart = movie);
   }
 
   addToCart(){
@@ -61,15 +71,31 @@ export class InfoComponent implements OnInit , OnDestroy{
     this.movieToCart.price = 500;
     this.movieToCart.imdbID = this.movie.imdbID;
 
-    //Si le agregamos la suscripcion, NO SE EJECUTA
-    // this.subscription?.add(
-      this.cartService.postMovieInCar(this.movieToCart).subscribe(data => console.log(data))
-    // );
+    this.subscription.add(
+      this.cartService.postMovieInCar(this.movieToCart).subscribe(data => {
+        console.log('data:' + data)
+      })
+    );
+
+    let index = this.allMoviesInCart.findIndex(index => index.imdbID == this.movieToCart.imdbID);
+
+    console.log(index);
+
+    if (index == -1) {
+      this.allMoviesInCart.push(this.movieToCart);
+      alert('Movie added to cart');
+    }
+    else alert ('This movies is aleready in your cart');
+
   };
+
+  return(){
+    this.router.navigate(['movie']);
+  }
 
   //Desuscripcion al salir del componente
   ngOnDestroy(): void {
-      this.subscription?.unsubscribe();
+      this.subscription.unsubscribe();
   }
 
 }

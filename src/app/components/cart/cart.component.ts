@@ -15,33 +15,47 @@ export class CartComponent implements OnInit, OnDestroy {
     private cartService : CartService,
   ) { }
 
+  //Variable subscripcion
+  private subcription = new Subscription;
+
   ngOnInit(): void {
 
-    this.subcription = this.cartService.getCartMovies().subscribe(data => {
+    //Suscribimos eventos
+    this.subcription.add(this.cartService.getCartMovies().subscribe(data => {
 
       //Pasamos todas las pelis guardada en la API al carrito
       this.allMoviesInCart = data;
 
-      console.log(this.allMoviesInCart);
-    })
+      //Suma
+      this.allMoviesInCart.forEach(m => {
+        this.totalToPay += m.price;
+      });
 
+      console.log(this.allMoviesInCart);
+    }))
   }
 
-  //Variable suscrpcion
-  private subcription : Subscription | undefined;
 
   //Variable auxilair
   allMoviesInCart : ICart[] = [];
 
+  //Variabe contable
+  totalToPay : number = 0;
+
   //Metodo para borrar de la API
   deleteMovies(id : string) {
-    // this.subcription?.add(
-      this.cartService.deleteMovie(id).subscribe(data => alert(data))
-      // );
+    this.subcription.add(
+      this.cartService.deleteMovie(id).subscribe(data => console.log(data))
+      );
+
+      //Renderizacion de pagina
+      let index = this.allMoviesInCart.findIndex(m => m.id == id);
+
+      this.allMoviesInCart.splice(index, 1);
   }
 
   //Nos desuscribimos al salir del componente
   ngOnDestroy(): void {
-      this.subcription?.unsubscribe();
+      this.subcription.unsubscribe();
   }
 }

@@ -21,28 +21,29 @@ export class MoviesComponent implements OnInit, OnDestroy {
 
   ) { }
 
-    //Variable auxiliar
-    allMovies : IMovies[] = [];
+  //Variable auxiliar
+  allMovies : IMovies[] = [];
 
-    //Variable suscripcion
-    private subscription : Subscription | undefined;
+  //Variable suscripcion
+  private subscription : Subscription | undefined;
 
   ngOnInit(): void {
     //Pasamos todas las pelis de la API
-    this.subscription = this.movieService.getMovies().subscribe(data => {
+    for(let i = 1; i<5; i++){
+      this.subscription = this.movieService.getMovies(i).subscribe(data => {
 
-      this.allMovies = data.Search;
+        //les metemos todas las peliculas de la api
+        this.allMovies = this.allMovies.concat(data.Search);
 
-      //Ordenamos el array en orden ascendente según fecha de lanzamiento
-      this.allMovies.sort((a,b) => {
-        if ((Number(a.Year)) > (Number(b.Year))) return 1;
-        else if ((Number(a.Year)) < (Number(b.Year))) return -1
-        else return 0
+        //Ordenamos el array en orden ascendente según fecha de lanzamiento
+        this.allMovies.sort((a,b) => {
+          if ((Number(a.Year)) > (Number(b.Year))) return 1;
+          else if ((Number(a.Year)) < (Number(b.Year))) return -1
+          else return 0
+        });
+
       });
-
-      console.log(this.allMovies);
-
-    });
+    }
   }
 
   //Redirecciona al componente con la info especifica

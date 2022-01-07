@@ -19,11 +19,11 @@ export class MoviesService {
   //Por elección, quiero que aparezcan las primeras 10 pelis de harry potter
   private firstTenMovies = 'Harry Potter';
   private union = '?s=';
-  private url = environment.movieAPIfisrtPart + this.union + this.firstTenMovies + environment.apiKey;
+  private url = environment.movieAPIfisrtPart + this.union + this.firstTenMovies + environment.apiKey +'&page=';
   // &page= --> Esto es para, en todo caso, tomar pelis de otras paginas. Por defecto, toma la 1.
 
   //Get de peliculas
-  getMovies(): Observable<IMovie> {
-    return this.httpClient.get<IMovie>(this.url);
+  getMovies(id : Number): Observable<IMovie> {
+    return this.httpClient.get<IMovie>(this.url + id);
   };
 }
