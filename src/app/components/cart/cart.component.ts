@@ -44,12 +44,15 @@ export class CartComponent implements OnInit, OnDestroy {
 
   //Metodo para borrar de la API
   deleteMovies(id : string) {
+
+    console.log('El ID: ' + id);
+
     this.subcription.add(
       this.cartService.deleteMovie(id).subscribe(data => console.log(data))
       );
 
       //Renderizacion de pagina
-      let index = this.allMoviesInCart.findIndex(m => m.id == id);
+      let index = this.allMoviesInCart.findIndex(m => m.imdbID == id);
 
       this.allMoviesInCart.splice(index, 1);
   }

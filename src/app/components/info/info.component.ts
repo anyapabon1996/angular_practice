@@ -77,9 +77,9 @@ export class InfoComponent implements OnInit , OnDestroy{
       })
     );
 
+    //TODO ESTO QUE ESTA ACA, QUE ES PARA TIRAR UN ALERT, NO LO QUIERO HACER!
+    //La idea es usar la propiedad exists
     let index = this.allMoviesInCart.findIndex(index => index.imdbID == this.movieToCart.imdbID);
-
-    console.log(index);
 
     if (index == -1) {
       this.allMoviesInCart.push(this.movieToCart);

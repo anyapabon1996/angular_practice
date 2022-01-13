@@ -1,0 +1,49 @@
+section {
+  display: flex;
+  justify-content: center;
+  margin: 2rem auto;
+  form{
+
+    .row {
+
+      .input-size {
+        padding-left: 5rem;
+        input {
+          width: 20rem;
+        }
+      }
+    }
+
+    .image {
+      text-align: center;
+    }
+
+    .pop-alert{
+
+      display:flex;
+      justify-content: start;
+
+      .alert-danger{
+        width: fit-content;
+      }
+    }
+
+    .btn-send{
+
+      display: flex;
+      justify-content: center;
+
+      button {
+        border-radius: 3rem;
+        width: 10rem;
+        padding: 0.3rem;
+      }
+
+      .btn-primary{
+        background-color: rgb(182, 0, 9);
+        border: 1px solid rgba(138, 5, 27, 0.678);
+      }
+    }
+  }
+
+}
