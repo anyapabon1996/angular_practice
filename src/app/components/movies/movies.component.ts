@@ -29,7 +29,7 @@ export class MoviesComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     //Pasamos todas las pelis de la API
-    for(let i = 1; i<5; i++){
+    for(let i = 1; i<9; i++){
       this.subscription = this.movieService.getMovies(i).subscribe(data => {
 
         //les metemos todas las peliculas de la api

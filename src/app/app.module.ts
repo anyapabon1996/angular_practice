@@ -12,6 +12,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material/material.module';
 import { InfoComponent } from './components/info/info.component';
 import { CartComponent } from './components/cart/cart.component';
+import { LoginComponent } from './components/login/login.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { CartComponent } from './components/cart/cart.component';
     MoviesComponent,
     MenuComponent,
     InfoComponent,
-    CartComponent
+    CartComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

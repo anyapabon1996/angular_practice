@@ -31,7 +31,8 @@ export class CartService {
 
   //Metodo delete: elimina del carrito
   deleteMovie(id : string): Observable<boolean> {
-    return this.httpClient.delete<boolean>(`${this.url}/${id}`);
+
+    return this.httpClient.delete<boolean>(`${this.url}?id=${id}`);
   }
 
   }

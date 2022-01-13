@@ -1,0 +1,70 @@
+<section class="container">
+
+  <form [formGroup]="loginForm">
+
+    <!-- Image -->
+    <div class="col-auto image">
+      <img src="../../../assets/icon-login2.png" id="icon" alt="User Icon" />
+    </div>
+
+    <!-- Email -->
+    <div class="mb-3 row align-items-center form-group">
+      <div class="row">
+        <label for="staticEmail" class="col-sm-2 col-form-label">Email</label>
+      </div>
+
+      <div class="col-sm-10 input-size">
+        <input type="text" class="form-control" id="staticEmail" placeholder="email@example.com" formControlName="email">
+      </div>
+    </div>
+
+    <!-- Email Validation -->
+    <div class="pop-alert">
+      <div class="alert alert-danger" *ngIf="loginForm.controls['email'].invalid && (loginForm.controls['email'].dirty || loginForm.controls['email'].touched)">
+
+        <div *ngIf="loginForm.controls['email'].hasError('email')">
+          Write a valid email address
+        </div>
+
+        <div *ngIf="loginForm.controls['email'].hasError('required')">
+          Add an email address
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Password -->
+    <div class="mb-3 row">
+      <div class="row">
+        <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
+      </div>
+
+      <div class="col-sm-10 input-size">
+        <input type="password" class="form-control" id="inputPassword" formControlName="password">
+      </div>
+    </div>
+
+    <!-- Password Validation -->
+    <div class="pop-alert">
+      <div class ="alert alert-danger" *ngIf="loginForm.controls['password'].invalid && (loginForm.controls['password'].dirty || loginForm.controls['password'].touched)">
+
+        <div *ngIf="loginForm.controls['password'].hasError('required')">
+          Input a password
+        </div>
+
+        <div *ngIf="loginForm.controls['password'].hasError('minlength')">
+          Password must has at least 8 characters
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Button Send -->
+    <div class="btn-send row">
+      <button class="btn btn-primary" (click)="sendLogin()" [disabled]="loginForm.invalid">Sign in</button>
+    </div>
+
+
+  </form>
+
+</section>
