@@ -7,27 +7,23 @@
       <img src="../../../assets/icon-login2.png" id="icon" alt="User Icon" />
     </div>
 
-    <!-- Email -->
+    <!-- User -->
     <div class="mb-3 row align-items-center form-group">
       <div class="row">
-        <label for="staticEmail" class="col-sm-2 col-form-label">Email</label>
+        <label class="col-sm-2 col-form-label">User</label>
       </div>
 
       <div class="col-sm-10 input-size">
-        <input type="text" class="form-control" id="staticEmail" placeholder="email@example.com" formControlName="email">
+        <input type="text" class="form-control" id="staticUser" formControlName="user">
       </div>
     </div>
 
-    <!-- Email Validation -->
+    <!-- User Validation -->
     <div class="pop-alert">
-      <div class="alert alert-danger" *ngIf="loginForm.controls['email'].invalid && (loginForm.controls['email'].dirty || loginForm.controls['email'].touched)">
+      <div class="alert alert-danger" *ngIf="loginForm.controls['user'].invalid && (loginForm.controls['user'].dirty || loginForm.controls['user'].touched)">
 
-        <div *ngIf="loginForm.controls['email'].hasError('email')">
-          Write a valid email address
-        </div>
-
-        <div *ngIf="loginForm.controls['email'].hasError('required')">
-          Add an email address
+        <div *ngIf="loginForm.controls['user'].hasError('required')">
+          Add you user
         </div>
 
       </div>
@@ -58,6 +54,10 @@
 
       </div>
     </div>
+
+    <p *ngIf="error" class="error">
+      {{ error }}
+    </p>
 
     <!-- Button Send -->
     <div class="btn-send row">

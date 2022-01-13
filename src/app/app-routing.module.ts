@@ -5,14 +5,17 @@ import { InfoComponent } from './components/info/info.component';
 import { LoginComponent } from './components/login/login.component';
 import { MoviesComponent } from './components/movies/movies.component';
 import { RegisterComponent } from './components/register/register.component';
+import { ProtectedGuardGuard } from './guards/protected-guard.guard';
 
 const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent
   },
+  //No se puede acceder a la informacion de la pelicula a menos que esté logueado
   {
     path: 'infoMovie/:id',
+    canActivate: [ProtectedGuardGuard],
     component: InfoComponent
   },
   {
