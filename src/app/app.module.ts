@@ -13,6 +13,8 @@ import { MaterialModule } from './material/material.module';
 import { InfoComponent } from './components/info/info.component';
 import { CartComponent } from './components/cart/cart.component';
 import { LoginComponent } from './components/login/login.component';
+import { MostViewComponent } from './components/most-view/most-view.component';
+import { MostViewAdminComponent } from './components/most-view-admin/most-view-admin.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,9 @@ import { LoginComponent } from './components/login/login.component';
     MenuComponent,
     InfoComponent,
     CartComponent,
-    LoginComponent
+    LoginComponent,
+    MostViewComponent,
+    MostViewAdminComponent
   ],
   imports: [
     BrowserModule,
