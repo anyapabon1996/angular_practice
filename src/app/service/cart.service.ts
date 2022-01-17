@@ -16,7 +16,7 @@ export class CartService {
   ) { }
 
   //Variable de conexion api
-  private url = environment.apiCart;
+  private url = environment.apiCart + 'cart';
 
   //Metodo para obtener pelis en el carrito
   getCartMovies(): Observable<ICart[]> {
@@ -31,7 +31,6 @@ export class CartService {
 
   //Metodo delete: elimina del carrito
   deleteMovie(id : string): Observable<boolean> {
-
     return this.httpClient.delete<boolean>(`${this.url}?id=${id}`);
   }
 

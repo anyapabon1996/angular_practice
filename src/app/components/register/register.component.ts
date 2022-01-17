@@ -17,14 +17,14 @@ export class RegisterComponent implements OnInit, OnDestroy {
   ) { }
 
   //Variable para la suscripción de eventos
-  private subscription : Subscription | undefined;
+  private subscription = new Subscription;
 
   ngOnInit(): void {
 
     //Agregamos todos los usuario que tenemos en la API
-    this.subscription = this.registerService.getUsers().subscribe(data => {
+    this.subscription.add(this.registerService.getUsers().subscribe(data => {
       this.allUsers = data;
-    });
+    }));
 
   }
 
@@ -32,7 +32,8 @@ export class RegisterComponent implements OnInit, OnDestroy {
   registerForm = new FormGroup ({
     userName : new FormControl('', [Validators.required]),
     password : new FormControl('', [Validators.required, Validators.minLength(8)]),
-    email : new FormControl('', [Validators.required, Validators.email])
+    email : new FormControl('', [Validators.required, Validators.email]),
+    role : new FormControl('', Validators.required)
   });
 
   //Variable interface usuario
@@ -40,7 +41,8 @@ export class RegisterComponent implements OnInit, OnDestroy {
     email : '',
     password: '',
     userName: '',
-    id: ''
+    id: '',
+    role: ''
   }
 
   //Variable con todos los usurios
@@ -55,20 +57,13 @@ export class RegisterComponent implements OnInit, OnDestroy {
     this.user.email = this.registerForm.controls['email'].value;
     this.user.password = this.registerForm.controls['password'].value;
     this.user.userName = this.registerForm.controls['userName'].value;
+    this.user.role = this.registerForm.controls['role'].value;
 
     console.log(this.user);
 
-    // this.registerService.validateNewUser(this.user).subscribe(data =>{
-    //   this.flag = data
-    // });
-
-    // if (!this.flag){
-    //   this.subscription?.add(
-        this.registerService.postNewUser(this.user).subscribe(data => {
-        console.log(`${this.user} has been registered`);
-      })
-    //   );
-    // } else alert("This mail already exists")
+    this.subscription.add(this.registerService.postNewUser(this.user).subscribe(data => {
+        console.log(`${this.user.email} has been registered`);
+      }));
 
     //reseteo de todo el formulario
     this.registerForm.reset();

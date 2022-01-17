@@ -1,0 +1,171 @@
+<!-- Formulario de creacion -->
+<section class="create">
+
+  <h2>{{createTitle}}</h2>
+
+  <form [formGroup]="createForm">
+
+    <!-- title -->
+    <div class="form-group mb-3 c-input-container">
+      <input type="text" aria-label="title" class="form-control" placeholder="Title" formControlName="title">
+    </div>
+
+    <!-- Validación title-->
+    <div class="pop-alert">
+      <div *ngIf="createForm.controls['title'].invalid && (createForm.controls['title'].dirty || createForm.controls['title'].touched)" class="alert alert-danger">
+        <div *ngIf="createForm.controls['title'].hasError('required')">Title is required</div>
+      </div>
+    </div>
+
+    <!-- Premiere -->
+    <div class="form-group mb-3">
+      <input type="number" aria-label="premiere" class="form-control" placeholder="Premiere" formControlName="premiere">
+    </div>
+
+    <!-- Validación Premiere-->
+    <div class="pop-alert">
+        <div *ngIf="createForm.controls['premiere'].invalid && (createForm.controls['premiere'].dirty || createForm.controls['premiere'].touched)" class="alert alert-danger">
+          <div *ngIf="createForm.controls['premiere'].hasError('required')">Premiere is required</div>
+        </div>
+    </div>
+
+    <!-- Image -->
+    <div class="form-group mb-3">
+      <input type="text" aria-label="image" class="form-control" placeholder="image url direction" formControlName="image">
+    </div>
+
+    <!-- Validación Image-->
+    <div class="pop-alert">
+      <div *ngIf="createForm.controls['image'].invalid && (createForm.controls['image'].dirty || createForm.controls['image'].touched)" class="alert alert-danger">
+        <div *ngIf="createForm.controls['image'].hasError('required')">Image is required</div>
+      </div>
+    </div>
+
+    <!-- Gener -->
+    <div class="form-group mb-3">
+      <input type="text" aria-label="gender" class="form-control" placeholder="Genre" formControlName="genre">
+    </div>
+
+    <!-- Validación Genre-->
+    <div class="pop-alert">
+      <div *ngIf="createForm.controls['genre'].invalid && (createForm.controls['genre'].dirty || createForm.controls['genre'].touched)" class="alert alert-danger">
+        <div *ngIf="createForm.controls['genre'].hasError('required')">Description is required</div>
+      </div>
+    </div>
+
+    <!-- Description -->
+    <div class="form-group mb-3">
+      <input type="text" aria-label="description" class="form-control" placeholder="Description" formControlName="description">
+    </div>
+
+    <!-- Validación Description-->
+    <div class="pop-alert">
+      <div *ngIf="createForm.controls['description'].invalid && (createForm.controls['description'].dirty || createForm.controls['description'].touched)" class="alert alert-danger">
+        <div *ngIf="createForm.controls['description'].hasError('required')">Description is required</div>
+      </div>
+    </div>
+
+    <!-- Adults Only-->
+    <div class="form-group mb-3">
+      <input type="type" aria-label="type" class="form-control" placeholder="Adult" formControlName="adultsOnly">
+    </div>
+
+    <!-- Validación Adults Only-->
+    <div class="pop-alert">
+      <div *ngIf="createForm.controls['adultsOnly'].invalid && (createForm.controls['adultsOnly'].dirty || createForm.controls['adultsOnly'].touched)" class="alert alert-danger">
+        <div *ngIf="createForm.controls['adultsOnly'].hasError('required')">Adults Only is required</div>
+      </div>
+    </div>
+
+    <!-- BOTON -->
+    <div class="btn-create">
+      <button type="submit" class="btn btn-primary" (click)="createMovie()" [disabled]="createForm.invalid">Send</button>
+    </div>
+
+  </form>
+</section>
+
+
+<!-- Formulario de edicion -->
+<section class="update">
+
+  <h2>{{updateTitle}}</h2>
+
+  <form [formGroup]="updateForm">
+
+    <!-- id -->
+    <div class="form-group mb-3 update-input">
+      <input type="number" aria-label="id" class="form-control" placeholder="Movie's id" formControlName="id">
+    </div>
+
+     <!-- Validación id-->
+     <div class="pop-alert">
+      <div *ngIf="updateForm.controls['id'].invalid && (updateForm.controls['id'].dirty || updateForm.controls['id'].touched)" class="alert alert-danger">
+        <div *ngIf="updateForm.controls['id'].hasError('required')">id is required</div>
+      </div>
+    </div>
+
+    <!-- title -->
+    <div class="form-group mb-3">
+      <input type="text" aria-label="title" class="form-control" placeholder="New title" formControlName="title">
+    </div>
+
+    <!-- Premiere -->
+    <div class="form-group mb-3">
+      <input type="number" aria-label="premiere" class="form-control" placeholder="Premiere" formControlName="premiere">
+    </div>
+
+    <!-- Image -->
+    <div class="form-group mb-3">
+      <input type="text" aria-label="image" class="form-control" placeholder="image url direction" formControlName="image">
+    </div>
+
+    <!-- Description -->
+    <div class="form-group mb-3">
+      <input type="text" aria-label="description" class="form-control" placeholder="Description" formControlName="description">
+    </div>
+
+    <!-- Adults Only-->
+    <div class="form-group mb-3">
+      <input type="type" aria-label="type" class="form-control" placeholder="Adult" formControlName="adultsOnly">
+    </div>
+
+    <!-- Gener -->
+    <div class="form-group mb-3">
+      <input type="text" aria-label="gender" class="form-control" placeholder="Genre" formControlName="genre">
+    </div>
+
+    <div class="btn-update">
+      <button type="submit" class="btn btn-primary" (click)="makesChanges()" [disabled]="updateForm.invalid">Redefine</button>
+    </div>
+
+  </form>
+</section>
+
+
+<!-- Formulario de eliminacion de pelicula -->
+<section>
+
+  <h2>{{deleteTitle}}</h2>
+
+  <form [formGroup]="deleteForm">
+
+       <!-- id -->
+        <div class="form-group mb-3 update">
+          <input type="number" aria-label="id" class="form-control" placeholder="Movie's id" formControlName="id">
+        </div>
+
+       <!-- Validación id-->
+      <div class="pop-alert">
+        <div *ngIf="deleteForm.controls['id'].invalid && (deleteForm.controls['id'].dirty || deleteForm.controls['id'].touched)" class="alert alert-danger">
+          <div *ngIf="deleteForm.controls['id'].hasError('required')">id is required</div>
+        </div>
+      </div>
+
+      <div class="btn-eliminate">
+        <button type="submit" class="btn btn-primary" (click)="deleteMovie()" [disabled]="deleteForm.invalid">Delete</button>
+      </div>
+
+  </form>
+</section>
+

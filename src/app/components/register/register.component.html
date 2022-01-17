@@ -85,9 +85,33 @@
 
           </div>
         </div>
+      </div>
 
+       <!-- Role name -->
+       <div class="row g-3 align-items-center form-group">
+
+        <div class="col-auto role">
+          <label for="userName" class="col-form-label">Role</label>
+        </div>
+
+        <div class="col-auto">
+          <input type="text" class="form-control" formControlName="role">
+        </div>
+
+        <!-- Role Validation -->
+        <div class="pop-alert">
+          <div class="alert alert-danger" *ngIf="registerForm.controls['role'].invalid && (registerForm.controls['role'].dirty || registerForm.controls['role'].touched)">
+
+            <div *ngIf="registerForm.controls['role'].hasError('required')">
+              Role is mandatory
+            </div>
+
+          </div>
+        </div>
 
       </div>
+
+
 
       <!-- Button Send -->
       <div class="btn-send row">
