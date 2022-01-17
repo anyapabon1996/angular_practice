@@ -3,7 +3,7 @@ export interface IMostViewMovies {
   description: string,
   image: string,
   premiere: number,
-  gender: string,
+  genre: string,
   adultsOnly: boolean,
   id: string
 }

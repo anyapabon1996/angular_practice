@@ -1,0 +1,34 @@
+section {
+
+  margin-bottom: 4rem;
+
+  h2{
+    text-align: center;
+  }
+
+  .btn-eliminate, .btn-create, .btn-update {
+    text-align: center;
+  }
+
+  .form-group{
+    display: flex;
+    justify-content: center;
+
+    input{
+      width: 30rem;
+    }
+  }
+
+    form {
+      .pop-alert{
+
+        display:flex;
+        justify-content: center;
+
+        .alert-danger{
+          width: fit-content;
+        }
+      }
+  }
+
+}

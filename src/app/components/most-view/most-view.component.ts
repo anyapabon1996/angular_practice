@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { IMostViewMovies } from 'src/app/models/mostView.model';
 import { MostViewService } from 'src/app/service/most-view.service';
@@ -8,7 +8,7 @@ import { MostViewService } from 'src/app/service/most-view.service';
   templateUrl: './most-view.component.html',
   styleUrls: ['./most-view.component.scss']
 })
-export class MostViewComponent implements OnInit {
+export class MostViewComponent implements OnInit, OnDestroy {
 
   //Variable contenedora
   allMovies : IMostViewMovies[] = [];
@@ -26,7 +26,13 @@ export class MostViewComponent implements OnInit {
     this.subscription.add(this.mostViewService.getMovies().subscribe(movies => {
       this.allMovies = movies;
       console.log(this.allMovies);
+    }, (err) => {
+      alert('There is an error at mostViewComponent');
     }))
+  }
+
+  ngOnDestroy(): void {
+      this.subscription.unsubscribe();
   }
 
 }

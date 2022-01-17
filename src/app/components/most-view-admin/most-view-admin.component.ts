@@ -31,7 +31,7 @@ export class MostViewAdminComponent implements OnInit, OnDestroy {
     id: '',
     title: '',
     premiere: 0,
-    gender: '',
+    genre: '',
     adultsOnly: false,
     description: '',
     image: ''
@@ -46,7 +46,12 @@ export class MostViewAdminComponent implements OnInit, OnDestroy {
     //Le pasamos todas las pelis del array
     this.subscription.add(this.mostViewService.getMovies().subscribe(data => {
       this.allMovies = data;
-    }));
+      console.log(this.allMovies);
+      //Esto controla el error en caso de que ocurra alguno, y le avisa al usuario
+    }, (err) => {
+      alert('There is an error at mostViewComponent');
+    }
+    ));
   }
 
   //Formulario de edicion
@@ -56,7 +61,7 @@ export class MostViewAdminComponent implements OnInit, OnDestroy {
     description: new FormControl(''),
     image: new FormControl(''),
     premiere: new FormControl(''),
-    gender: new FormControl(''),
+    genre: new FormControl(''),
     adultsOnly: new FormControl('')
   });
 
@@ -100,10 +105,10 @@ export class MostViewAdminComponent implements OnInit, OnDestroy {
         this.movie.description = this.updateForm.controls['description'].value;
       }
 
-      if (this.updateForm.controls['gender'].value != ''){
-        this.movie.gender =  this.updateForm.controls['gender'].value;
+      if (this.updateForm.controls['genre'].value != ''){
+        this.movie.genre =  this.updateForm.controls['gender'].value;
 
-        this.movie.gender = this.movie.gender.toLowerCase().trim();
+        this.movie.genre = this.movie.genre.toLowerCase().trim();
       }
 
       if(this.updateForm.controls['premiere'].value > 1900){
@@ -115,7 +120,15 @@ export class MostViewAdminComponent implements OnInit, OnDestroy {
         this.movie.title = this.movie.title.toLowerCase().trim();
       }
 
-      this.subscription.add(this.adminService.updateMovies(this.movie).subscribe(data => alert('movie edited: ' + data)));
+      this.subscription.add(this.adminService.updateMovies(this.movie).subscribe(data => {
+        alert('movie edited: ' + data)
+        }, (err) => {
+          alert('There is an Error at mostViewAdminComponent');
+        }
+      ));
+
+      //reseteo de todo el formulario
+      this.updateForm.reset();
 
     } else {
       alert ('You are looking for an unexisting movie');
@@ -131,7 +144,7 @@ export class MostViewAdminComponent implements OnInit, OnDestroy {
       premiere: this.createForm.controls['premiere'].value,
       description: this.createForm.controls['description'].value,
       image: this.createForm.controls['image'].value,
-      gender: this.createForm.controls['gender'].value,
+      genre: this.createForm.controls['genre'].value,
       adultsOnly: this.createForm.controls['adultsOnly'].value,
       id: "0",
       }
@@ -139,15 +152,24 @@ export class MostViewAdminComponent implements OnInit, OnDestroy {
       console.log(data);
       alert('Movie created')
     }));
+
+    //reseteo de todo el formulario
+    this.createForm.reset();
   }
 
   //Metodo de eliminacion
   deleteMovie(){
-    this.subscription.add(this.adminService.deleteMovie(this.deleteForm.controls['id'].value).subscribe(
+    this.subscription.add(this.adminService.deleteMovie(String(this.deleteForm.controls['id'].value)).subscribe(
       data => {
         alert(data);
+        //Controlamos el error
+      }, (err) => {
+        alert('You are eliminating an unexisting movie');
       }
-    ))
+    ));
+
+    //reseteo de todo el formulario
+    this.deleteForm.reset();
   };
 
   //Desuscripcion al salir del componente

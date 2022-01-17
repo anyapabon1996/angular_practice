@@ -10,7 +10,6 @@ import jwt_decode from 'jwt-decode';
 export class LoginService {
 
   private url = environment.apiCart + 'login';
-
   private token : any = null;
   private user = '';
   private userName = '';

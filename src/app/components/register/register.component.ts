@@ -17,14 +17,14 @@ export class RegisterComponent implements OnInit, OnDestroy {
   ) { }
 
   //Variable para la suscripción de eventos
-  private subscription : Subscription | undefined;
+  private subscription = new Subscription;
 
   ngOnInit(): void {
 
     //Agregamos todos los usuario que tenemos en la API
-    this.subscription = this.registerService.getUsers().subscribe(data => {
+    this.subscription.add(this.registerService.getUsers().subscribe(data => {
       this.allUsers = data;
-    });
+    }));
 
   }
 
@@ -61,17 +61,9 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
     console.log(this.user);
 
-    // this.registerService.validateNewUser(this.user).subscribe(data =>{
-    //   this.flag = data
-    // });
-
-    // if (!this.flag){
-    //   this.subscription?.add(
-        this.registerService.postNewUser(this.user).subscribe(data => {
+    this.subscription.add(this.registerService.postNewUser(this.user).subscribe(data => {
         console.log(`${this.user.email} has been registered`);
-      })
-    //   );
-    // } else alert("This mail already exists")
+      }));
 
     //reseteo de todo el formulario
     this.registerForm.reset();

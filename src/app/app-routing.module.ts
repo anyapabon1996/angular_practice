@@ -18,6 +18,7 @@ const routes: Routes = [
   },
   {
     path: 'mostViews',
+    canActivate: [ProtectedGuardGuard],
     component: MostViewComponent
   },
   {
@@ -27,7 +28,7 @@ const routes: Routes = [
   //No se puede acceder a la informacion de la pelicula a menos que esté logueado
   {
     path: 'infoMovie/:id',
-    canActivate: [ProtectedGuardGuard],
+    // canActivate: [ProtectedGuardGuard],
     component: InfoComponent
   },
   {

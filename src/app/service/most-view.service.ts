@@ -1,6 +1,6 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { catchError, Observable, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { IMostViewMovies } from '../models/mostView.model';
 
@@ -19,6 +19,8 @@ export class MostViewService {
 
   //Metodo que llama a todas las peliculas GET
   getMovies(): Observable<IMostViewMovies[]> {
+
+    //Pasamos por parametro el headers, que es el token
     return this.httpCliente.get<IMostViewMovies[]>(this.url);
   }
 

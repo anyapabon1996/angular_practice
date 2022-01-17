@@ -25,12 +25,12 @@ export class MoviesComponent implements OnInit, OnDestroy {
   allMovies : IMovies[] = [];
 
   //Variable suscripcion
-  private subscription : Subscription | undefined;
+  private subscription = new Subscription;
 
   ngOnInit(): void {
     //Pasamos todas las pelis de la API
     for(let i = 1; i<9; i++){
-      this.subscription = this.movieService.getMovies(i).subscribe(data => {
+      this.subscription.add(this.movieService.getMovies(i).subscribe(data => {
 
         //les metemos todas las peliculas de la api
         this.allMovies = this.allMovies.concat(data.Search);
@@ -42,7 +42,9 @@ export class MoviesComponent implements OnInit, OnDestroy {
           else return 0
         });
 
-      });
+      }, (err => {
+          alert('Theres an ERROR!!!');
+      })));
     }
   }
 

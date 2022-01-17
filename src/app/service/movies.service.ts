@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { IMovie } from '../models/movie.model';
@@ -17,13 +17,18 @@ export class MoviesService {
 
   //Variable conexion con API
   //Por elección, quiero que aparezcan las primeras 10 pelis de harry potter
-  private firstTenMovies = 'Disney';
+  private firstTenMovies = 'Potter';
   private union = '?s=';
-  private url = environment.movieAPIfisrtPart + this.union + this.firstTenMovies + environment.apiKey +'&page=';
+  private url = environment.movieAPIfisrtPart + this.union + this.firstTenMovies + environment.apiKey;
+  // +'&page=';
   // &page= --> Esto es para, en todo caso, tomar pelis de otras paginas. Por defecto, toma la 1.
 
   //Get de peliculas
   getMovies(id : Number): Observable<IMovie> {
-    return this.httpClient.get<IMovie>(this.url + id);
+
+    //Antes estabamos usando la linea 23 unida a la 22 para hacer este tipo de peticion, con el metodo de HttpParams funciona igual
+    let params = new HttpParams().append('page', String(id));
+
+    return this.httpClient.get<IMovie>(this.url, {params});
   };
 }
