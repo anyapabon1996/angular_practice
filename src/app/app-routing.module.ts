@@ -13,7 +13,7 @@ import { ProtectedGuardGuard } from './guards/protected-guard.guard';
 const routes: Routes = [
   {
     path: 'admin',
-    canActivate: [ProtectedGuardGuard, AdminRoleGuard],
+    canActivate: [AdminRoleGuard],
     component: MostViewAdminComponent
   },
   {
@@ -28,7 +28,7 @@ const routes: Routes = [
   //No se puede acceder a la informacion de la pelicula a menos que esté logueado
   {
     path: 'infoMovie/:id',
-    // canActivate: [ProtectedGuardGuard],
+    canActivate: [ProtectedGuardGuard],
     component: InfoComponent
   },
   {
@@ -41,6 +41,7 @@ const routes: Routes = [
   },
   {
     path: 'cart',
+    canActivate: [ProtectedGuardGuard],
     component: CartComponent
   },
   {

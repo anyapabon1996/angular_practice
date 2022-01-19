@@ -41,14 +41,17 @@ export class LoginService {
     )
   }
 
+  //Método para obtener el token
   getToken(): any{
     return this.token;
   }
 
+  //Metodo booleano para determinar si esta logueado el user
   isUserLoggedIn() {
     return this.user !== '';
   }
 
+  //Metodo para obtener la info del user
   getUserInfo(): any {
     return {
       user: this.user,

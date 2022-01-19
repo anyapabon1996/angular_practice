@@ -30,6 +30,5 @@ export class MostViewAdminService {
   //Elimina la pelicula
   deleteMovie(id: string): Observable<boolean> {
     return this.httpCliente.delete<boolean>(`${this.url}/${id}`)
-
   }
 }
