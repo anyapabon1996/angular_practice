@@ -2,7 +2,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { IMovie, IOnlyMovie } from '../models/movie.model';
+import { IOnlyMovie } from '../models/movie.model';
 
 @Injectable({
   providedIn: 'root'
@@ -27,7 +27,7 @@ export class InfoService {
       ${error.message}`)
     }
 
-    return throwError('HTTP comunication error');
+    return throwError (() => new Error('HTTP comunication error'));
 
   }
 

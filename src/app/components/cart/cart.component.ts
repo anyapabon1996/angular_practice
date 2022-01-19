@@ -18,6 +18,12 @@ export class CartComponent implements OnInit, OnDestroy {
   //Variable subscripcion
   private subcription = new Subscription;
 
+  //Variable auxilair
+  allMoviesInCart : ICart[] = [];
+
+  //Variabe contable
+  totalToPay : number = 0;
+
   ngOnInit(): void {
 
     //Suscribimos eventos
@@ -35,13 +41,6 @@ export class CartComponent implements OnInit, OnDestroy {
     }))
   }
 
-
-  //Variable auxilair
-  allMoviesInCart : ICart[] = [];
-
-  //Variabe contable
-  totalToPay : number = 0;
-
   //Metodo para borrar de la API
   deleteMovies(id : string) {
 
@@ -54,8 +53,33 @@ export class CartComponent implements OnInit, OnDestroy {
       //Renderizacion de pagina
       let index = this.allMoviesInCart.findIndex(m => m.imdbID == id);
 
+      //restamos el importe
+      this.totalToPay -= this.allMoviesInCart[index].price;
+
+      //Eliminamos visualmente del front inmediato
       this.allMoviesInCart.splice(index, 1);
-  }
+  };
+
+  //Función que elimina todo del carrito
+  deleteAll(){
+
+    //Llamamos al servicio
+    this.allMoviesInCart.forEach(movie =>{
+      this.subcription.add(this.cartService.deleteMovie(movie.imdbID).subscribe(
+        movieEliminated => {
+          console.log(movieEliminated + " has been eliminated");
+        }
+      ))
+    });
+
+    alert('Your cart has been emptied')
+
+    //Vaciamos el carrito en el front
+    this.allMoviesInCart = [];
+
+    //Reestablecemos el valor
+    this.totalToPay = 0;
+  };
 
   //Nos desuscribimos al salir del componente
   ngOnDestroy(): void {

@@ -18,9 +18,13 @@ export class ProtectedGuardGuard implements CanActivate {
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
     const isUserLoggedIn = this.loginService.isUserLoggedIn();
+    const userInfo = this.loginService.getUserInfo();
 
     //Si el usuario es falso, me lo redirige a la pagina de login
     if (!isUserLoggedIn) {
+      this.router.navigate(['login']);
+    //Si el usuario es distinto de user
+    } else if (userInfo.role !== 'user') {
       this.router.navigate(['login']);
     }
 

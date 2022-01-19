@@ -7,6 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MenuComponent implements OnInit {
 
+  //Titulo de la página
+  title: string = 'Movies Anya';
+
   constructor() { }
 
   ngOnInit(): void {

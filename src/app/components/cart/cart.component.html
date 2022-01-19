@@ -31,7 +31,7 @@
 
       <td>{{movie.title}}</td>
 
-      <td>{{movie.price}}</td>
+      <td>$ {{movie.price}}</td>
 
       <td><button button type="button" class="btn btn-danger" (click)="deleteMovies(movie.imdbID)">Delete</button></td>
 
@@ -40,7 +40,12 @@
     <tr>
       <th>Total</th>
 
-      <td>${{totalToPay}}</td>
+      <td>$ {{totalToPay}}</td>
+      <td></td>
+      <td></td>
+
+      <td><button button type="button" class="btn btn-danger" (click)="deleteAll()">Clear Cart</button></td>
+
     </tr>
 
     <button type="submit" class="btn btn-primary btn-block">Rent</button>

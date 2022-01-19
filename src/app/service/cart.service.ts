@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { ICart } from '../models/cart.model';
 
 @Injectable({
@@ -26,7 +26,18 @@ export class CartService {
   //Metooo Post: agrega al carrito
   postMovieInCar(movie : ICart): Observable<ICart> {
 
-    return this.httpClient.post<ICart>(this.url, movie);
+    return this.httpClient.post<ICart>(this.url, movie)
+    // .pipe(
+    //   map(res => {
+    //     console.log('LA RESPUESTA ES' + res);
+    //     if (res.id === 'NOT OK') {
+    //       return false
+    //     } else {
+    //       return true
+    //     }
+    //   }
+    //   )
+    // )
   }
 
   //Metodo delete: elimina del carrito

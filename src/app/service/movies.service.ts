@@ -24,7 +24,7 @@ export class MoviesService {
   // &page= --> Esto es para, en todo caso, tomar pelis de otras paginas. Por defecto, toma la 1.
 
   //Get de peliculas
-  getMovies(id : Number): Observable<IMovie> {
+  getMovies(id: Number): Observable<IMovie> {
 
     //Antes estabamos usando la linea 23 unida a la 22 para hacer este tipo de peticion, con el metodo de HttpParams funciona igual
     let params = new HttpParams().append('page', String(id));

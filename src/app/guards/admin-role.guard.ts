@@ -25,6 +25,7 @@ export class AdminRoleGuard implements CanActivate {
 
     //Si el usuario es falso, me lo redirige a la pagina de login
     if (userInfo.role !== 'admin') {
+      alert('This side is only for admin member')
       this.router.navigate(['login']);
     }
 

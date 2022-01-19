@@ -30,10 +30,14 @@ export class MoviesComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     //Pasamos todas las pelis de la API
     for(let i = 1; i<9; i++){
+
       this.subscription.add(this.movieService.getMovies(i).subscribe(data => {
 
         //les metemos todas las peliculas de la api
         this.allMovies = this.allMovies.concat(data.Search);
+
+        //Sacamos las peliculas cuyo poster no sea visible
+        this.allMovies = this.allMovies.filter(movie => movie.Poster != 'N/A' && movie.Type == 'movie');
 
         //Ordenamos el array en orden ascendente según fecha de lanzamiento
         this.allMovies.sort((a,b) => {

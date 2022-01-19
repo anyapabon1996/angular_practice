@@ -12,7 +12,7 @@ import { MostViewService } from 'src/app/service/most-view.service';
 })
 export class MostViewAdminComponent implements OnInit, OnDestroy {
 
-  //titulo
+  //titulos
   updateTitle: string = 'You can modify any movie providing its id and replacing the inputs content';
   createTitle : string = 'Add one movie to the package of most viewed';
   deleteTitle: string = 'Eliminate movie by its id';
@@ -164,7 +164,8 @@ export class MostViewAdminComponent implements OnInit, OnDestroy {
         alert(data);
         //Controlamos el error
       }, (err) => {
-        alert('You are eliminating an unexisting movie');
+        console.log(err);
+        alert('You are eliminating an unexisting movie or there is an error at MostViewAdminService');
       }
     ));
 
