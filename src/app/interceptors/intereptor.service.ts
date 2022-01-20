@@ -25,10 +25,6 @@ export class IntereptorService implements HttpInterceptor {
       const isApiUrl2 = request.url.startsWith(environment.apiCart);
       // const isApiUrl3 = request.url.startsWith(environment.movieAPIfisrtPart);
 
-      // console.log('La api tercera es: ' + isApiUrl3);
-      console.log('la request es: ' + request);
-      console.log('el token es: ' + token);
-
       if (token && isApiUrl2) {
         //Esto clona la request, de modo que podamos hacer uso de ella las veces que sea necesaria. Si no, al primer
         //uso dejaría de ser funcional
@@ -39,8 +35,6 @@ export class IntereptorService implements HttpInterceptor {
 
           console.log(request);
       };
-
-      console.log('paso por intercepcion');
 
       //Esto es: deje pasar todo
       return next.handle(request)

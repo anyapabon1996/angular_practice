@@ -95,7 +95,7 @@
 
     <!-- id -->
     <div class="form-group mb-3 update-input">
-      <input type="number" aria-label="id" class="form-control" placeholder="Movie's id" formControlName="id">
+      <input type="number" aria-label="id" class="form-control id-camp" placeholder="Movie's id" formControlName="id" (change)="idQuantity()">
     </div>
 
      <!-- Validación id-->
@@ -151,8 +151,8 @@
   <form [formGroup]="deleteForm">
 
        <!-- id -->
-        <div class="form-group mb-3 update">
-          <input type="number" aria-label="id" class="form-control" placeholder="Movie's id" formControlName="id">
+        <div class="form-group mb-3">
+          <input type="number" aria-label="id" class="form-control id-camp" placeholder="Movie's id" formControlName="id" (change)="idQuantity()">
         </div>
 
        <!-- Validación id-->

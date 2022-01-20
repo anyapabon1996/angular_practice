@@ -16,6 +16,8 @@ import { LoginComponent } from './components/login/login.component';
 import { MostViewComponent } from './components/most-view/most-view.component';
 import { MostViewAdminComponent } from './components/most-view-admin/most-view-admin.component';
 import { IntereptorService } from './interceptors/intereptor.service';
+import { StoreModule } from '@ngrx/store';
+import { appReducer } from './store/app.reducer'
 
 
 @NgModule({
@@ -37,6 +39,7 @@ import { IntereptorService } from './interceptors/intereptor.service';
     HttpClientModule,
     BrowserAnimationsModule,
     MaterialModule,
+    StoreModule.forRoot({ app: appReducer } , {}),
   ],
   providers: [
     //Esto alude al servicio del interceptor

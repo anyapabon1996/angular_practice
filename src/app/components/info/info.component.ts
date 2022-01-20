@@ -1,10 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { ICart } from 'src/app/models/cart.model';
 import { IOnlyMovie } from 'src/app/models/movie.model';
 import { CartService } from 'src/app/service/cart.service';
 import { InfoService } from 'src/app/service/info.service';
+import { appSetSlogan } from 'src/app/store/app.actions';
 
 @Component({
   selector: 'app-info',
@@ -26,6 +28,9 @@ export class InfoComponent implements OnInit , OnDestroy{
 
     //Inyeccion delm servicio de ruteo
     private router : Router,
+
+    //Inyeccion del store
+    private store : Store,
   ) { }
 
   //Variable suscripcion
@@ -48,6 +53,10 @@ export class InfoComponent implements OnInit , OnDestroy{
   allMoviesInCart : ICart[] = [];
 
   ngOnInit(): void {
+    //Pasamos el slogan
+    this.store.dispatch(
+      appSetSlogan({slogan: "It's from wises to know a little about that you are just about to start. Although sometimes you end up in places never expected"})
+    );
 
     //Pasamos la peli del evento click
     this.subscription.add(this.infoService.getMovieById(this.activatedRouter.snapshot.params['id']).

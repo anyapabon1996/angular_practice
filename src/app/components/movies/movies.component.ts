@@ -1,8 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { IMovies } from 'src/app/models/movie.model';
 import { MoviesService } from 'src/app/service/movies.service';
+import { appSetSlogan } from 'src/app/store/app.actions';
 
 @Component({
   selector: 'app-movies',
@@ -19,6 +22,9 @@ export class MoviesComponent implements OnInit, OnDestroy {
     //Inyección del router para ir a otro componente
     private router : Router,
 
+    //Store
+    private store: Store,
+
   ) { }
 
   //Variable auxiliar
@@ -27,7 +33,17 @@ export class MoviesComponent implements OnInit, OnDestroy {
   //Variable suscripcion
   private subscription = new Subscription;
 
+  //formulario para buscar pelicula
+  lookMovieForm = new FormGroup ({
+    movieName : new FormControl('')
+  })
+
   ngOnInit(): void {
+    //Slogan
+    this.store.dispatch(
+      appSetSlogan({slogan: 'But you know, a movie is not just about to watch, but to feel another reality that impact your own life'})
+    );
+
     //Pasamos todas las pelis de la API
     for(let i = 1; i<9; i++){
 
@@ -37,12 +53,12 @@ export class MoviesComponent implements OnInit, OnDestroy {
         this.allMovies = this.allMovies.concat(data.Search);
 
         //Sacamos las peliculas cuyo poster no sea visible
-        this.allMovies = this.allMovies.filter(movie => movie.Poster != 'N/A' && movie.Type == 'movie');
+        this.allMovies = this.allMovies.filter(movie => (movie.Poster != 'N/A') && (movie.Type == 'movie'));
 
-        //Ordenamos el array en orden ascendente según fecha de lanzamiento
+        //Ordenamos el array en orden descendente según fecha de lanzamiento
         this.allMovies.sort((a,b) => {
-          if ((Number(a.Year)) > (Number(b.Year))) return 1;
-          else if ((Number(a.Year)) < (Number(b.Year))) return -1
+          if ((Number(a.Year)) < (Number(b.Year))) return 1;
+          else if ((Number(a.Year)) > (Number(b.Year))) return -1
           else return 0
         });
 
@@ -50,6 +66,18 @@ export class MoviesComponent implements OnInit, OnDestroy {
           alert('Theres an ERROR!!!');
       })));
     }
+  };
+
+    //Funcion que devuelve el objeto de la pelicula buscada
+  lookMovie(){
+    this.subscription.add(this.movieService.getMovieByTitle(this.lookMovieForm.controls['movieName'].value).subscribe(
+      data => {
+        if (data != undefined) {
+          this.router.navigate(['infoMovie', data]);
+        }
+        else alert('This movie is not into out DataBases');
+      }
+    ));
   }
 
   //Redirecciona al componente con la info especifica

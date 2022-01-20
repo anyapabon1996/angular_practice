@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { IUser } from '../models/user.model';
-import { Observable, of } from 'rxjs';
+import { catchError, Observable, of, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 
@@ -16,10 +16,26 @@ export class RegisterService {
   ) { }
 
   //Variable URL
-  private url = environment.APIrestURL + 'users';
+  private url = environment.apiUser + 'register';
 
   //Variable auxilair
   allUser : IUser[] = [];
+
+  //Manejo de Errores
+  private handleError(error: HttpErrorResponse){
+
+    //Error del Front
+    if (error.error instanceof ErrorEvent){
+      console.warn("Front error", error.error.message);
+
+    //Error del back
+    } else {
+      console.warn(`Back error: ${error.status}, body error:
+      ${error.message}`)
+    }
+
+    return throwError(() => new Error('HTTP comunication ERROR Register'));
+  }
 
   //Post de nuevo usuario
   postNewUser(user : IUser): Observable<IUser> {

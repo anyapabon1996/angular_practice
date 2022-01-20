@@ -1,9 +1,12 @@
+import { ArrayType } from '@angular/compiler';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { IMostViewMovies } from 'src/app/models/mostView.model';
 import { MostViewAdminService } from 'src/app/service/most-view-admin.service';
 import { MostViewService } from 'src/app/service/most-view.service';
+import { appSetSlogan } from 'src/app/store/app.actions';
 
 @Component({
   selector: 'app-most-view-admin',
@@ -39,10 +42,18 @@ export class MostViewAdminComponent implements OnInit, OnDestroy {
 
   constructor(
     private adminService : MostViewAdminService,
-    private mostViewService : MostViewService
+    private mostViewService : MostViewService,
+
+    //Inyeccion del store
+    private store: Store,
   ) { }
 
   ngOnInit(): void {
+    //Slogan
+    this.store.dispatch(
+      appSetSlogan({slogan: 'Hey, buddy! Do not let the power blind your senses. Go easy, ok'})
+    )
+
     //Le pasamos todas las pelis del array
     this.subscription.add(this.mostViewService.getMovies().subscribe(data => {
       this.allMovies = data;
@@ -155,7 +166,7 @@ export class MostViewAdminComponent implements OnInit, OnDestroy {
 
     //reseteo de todo el formulario
     this.createForm.reset();
-  }
+  };
 
   //Metodo de eliminacion
   deleteMovie(){
@@ -172,6 +183,17 @@ export class MostViewAdminComponent implements OnInit, OnDestroy {
     //reseteo de todo el formulario
     this.deleteForm.reset();
   };
+
+  //Metodo para validar que ingrese un id corret
+  idQuantity() {
+    if((this.updateForm.controls['id'].value) < 0  || (this.deleteForm.controls['id'].value < 0)){
+      alert('Put only natural numbers (0 included)');
+
+      this.updateForm.controls['id'].reset();
+      this.deleteForm.controls['id'].reset();
+    }
+  }
+
 
   //Desuscripcion al salir del componente
   ngOnDestroy(): void {

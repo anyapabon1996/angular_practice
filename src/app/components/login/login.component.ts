@@ -1,8 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { LoginService } from 'src/app/service/login.service';
+import { appSetSlogan } from 'src/app/store/app.actions';
 
 @Component({
   selector: 'app-login',
@@ -18,10 +20,16 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   constructor(
     private loginService : LoginService,
-    private router : Router
+    private router : Router,
+
+    //inyeccion del store
+    private store: Store,
   ) { }
 
   ngOnInit(): void {
+    this.store.dispatch(
+      appSetSlogan({slogan: 'Glad to see you again. Login, we must go on!'})
+    );
   }
 
   //Formulario de login

@@ -1,9 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { ICart } from 'src/app/models/cart.model';
 import { IMostViewMovies } from 'src/app/models/mostView.model';
 import { CartService } from 'src/app/service/cart.service';
 import { MostViewService } from 'src/app/service/most-view.service';
+import { appSetSlogan } from 'src/app/store/app.actions';
 
 @Component({
   selector: 'app-most-view',
@@ -36,9 +38,17 @@ export class MostViewComponent implements OnInit, OnDestroy {
     private mostViewService : MostViewService,
 
     private cartService : CartService,
+
+    //Inyeccion del store
+    private store: Store,
   ) { }
 
   ngOnInit(): void {
+    //Pasamos el slogan
+    this.store.dispatch(
+      appSetSlogan({slogan: "Look carefully. Just because they are here, doesn't mean they are good, just profitable"})
+    )
+
     //Le pasamos todas las peliculas que tenemos al array de pelis
     this.subscription.add(this.mostViewService.getMovies().subscribe(movies => {
       this.allMovies = movies;
