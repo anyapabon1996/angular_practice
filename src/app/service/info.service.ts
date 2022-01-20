@@ -33,11 +33,12 @@ export class InfoService {
 
   private union = '?i=';
   private key = environment.apiKey;
-  private url = environment.movieAPIfisrtPart + this.union;
+  private url = environment.movieAPIfisrtPart;
 
   getMovieById(id: string): Observable<IOnlyMovie | undefined>{
-    return this.httpCliente.get<IOnlyMovie>(this.url + id + this.key).
+    return this.httpCliente.get<IOnlyMovie>(this.url + this.union + id + this.key).
      //Esto acá es para cuando se busca una peli que no existe en nuestro sistema
      pipe(catchError(this.handleError));
   }
+
 }

@@ -1,7 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { ICart } from 'src/app/models/cart.model';
 import { CartService } from 'src/app/service/cart.service';
+import { appSetSlogan } from 'src/app/store/app.actions';
 
 @Component({
   selector: 'app-cart',
@@ -13,6 +15,9 @@ export class CartComponent implements OnInit, OnDestroy {
   constructor(
     //Inyeccion del servicio cart
     private cartService : CartService,
+
+    //Inyeccion para trabajar con mi store/redux
+    private store : Store,
   ) { }
 
   //Variable subscripcion
@@ -25,6 +30,10 @@ export class CartComponent implements OnInit, OnDestroy {
   totalToPay : number = 0;
 
   ngOnInit(): void {
+    //Despachamos la accion del store
+    this.store.dispatch(
+      appSetSlogan({slogan: 'Masterpices chosen by you to enrich your emotional, moral and historical skills and knowledge'})
+      );
 
     //Suscribimos eventos
     this.subcription.add(this.cartService.getCartMovies().subscribe(data => {
@@ -38,13 +47,11 @@ export class CartComponent implements OnInit, OnDestroy {
       });
 
       console.log(this.allMoviesInCart);
-    }))
+    }));
   }
 
   //Metodo para borrar de la API
   deleteMovies(id : string) {
-
-    console.log('El ID: ' + id);
 
     this.subcription.add(
       this.cartService.deleteMovie(id).subscribe(data => console.log(data))

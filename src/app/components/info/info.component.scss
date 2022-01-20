@@ -11,6 +11,17 @@
       .btn-container{
 
         text-align: center;
+
+        .btn-info{
+          background-color: rgb(182, 0, 9);
+          border: 1px solid rgba(138, 5, 27, 0.678);
+          width: 8rem;
+        }
+
+        .btn-info:hover{
+          background-color: rgba(182, 0, 9, 0.583);
+          border: 1px solid rgba(138, 5, 27, 0.678);
+        }
       }
     }
   }
@@ -29,9 +40,7 @@
     }
   }
 
-  .button-container{
-    button{
-      position: fixed;
-    }
-  }
+  .mat-flat-button.mat-warn, .mat-raised-button.mat-warn, .mat-fab.mat-warn, .mat-mini-fab.mat-warn {
+    background-color: #aa0011;
+}
 }
