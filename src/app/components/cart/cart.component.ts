@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { ICart } from 'src/app/models/cart.model';
+import { AlertsService } from 'src/app/service/alerts.service';
 import { CartService } from 'src/app/service/cart.service';
 import { appSetSlogan } from 'src/app/store/app.actions';
 
@@ -18,6 +19,9 @@ export class CartComponent implements OnInit, OnDestroy {
 
     //Inyeccion para trabajar con mi store/redux
     private store : Store,
+
+    //Inyección de las alertas
+    private sweetAlert : AlertsService,
   ) { }
 
   //Variable subscripcion
@@ -79,7 +83,8 @@ export class CartComponent implements OnInit, OnDestroy {
       ))
     });
 
-    alert('Your cart has been emptied')
+    //Alerta e que todo salió ok
+    this.subcription.add(this.sweetAlert.goodAlert('Success','Your cart has been emptied'));
 
     //Vaciamos el carrito en el front
     this.allMoviesInCart = [];

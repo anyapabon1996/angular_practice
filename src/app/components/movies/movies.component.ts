@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { IMovies } from 'src/app/models/movie.model';
+import { AlertsService } from 'src/app/service/alerts.service';
 import { MoviesService } from 'src/app/service/movies.service';
 import { appSetSlogan } from 'src/app/store/app.actions';
 
@@ -24,6 +25,9 @@ export class MoviesComponent implements OnInit, OnDestroy {
 
     //Store
     private store: Store,
+
+    //Alertas
+    private sweetAlert : AlertsService,
 
   ) { }
 
@@ -63,7 +67,7 @@ export class MoviesComponent implements OnInit, OnDestroy {
         });
 
       }, (err => {
-          alert('Theres an ERROR!!!');
+          this.subscription.add(this.sweetAlert.alert('Error!', 'Theres an ERROR!!!'));
       })));
     }
   };
@@ -75,7 +79,7 @@ export class MoviesComponent implements OnInit, OnDestroy {
         if (data != undefined) {
           this.router.navigate(['infoMovie', data]);
         }
-        else alert('This movie is not into out DataBases');
+        else this.subscription.add(this.sweetAlert.warningAlert('Hey!', 'This movie is not into out DataBases, or you are typing it wrong'));
       }
     ));
   }
