@@ -1,7 +1,35 @@
 /* You can add global styles to this file, and also import other style files */
+//Tipo de letra a usar
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Neonderthaw&display=swap');
 
 html, body {
   height: 100%;
   overflow-x: hidden;
 }
+
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.mat-h3, .mat-subheading-2, .mat-typography h3{
+  font-size: 4rem;
+  font-family: 'Anton', sans-serif;
+}
+
+.alert-text{
+  font-size: 2rem;
+}
+
+.swal2-confirm{
+  display: inline-block;
+  border-radius: 3rem ;
+  padding: 0.5rem;
+  width: 11rem;
+  background-color: rgb(182, 0, 9);
+
+  .style-button{
+      color: white;
+  }
+}
+
+
+
+

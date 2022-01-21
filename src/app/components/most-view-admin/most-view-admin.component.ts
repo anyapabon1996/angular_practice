@@ -1,9 +1,9 @@
-import { ArrayType } from '@angular/compiler';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { IMostViewMovies } from 'src/app/models/mostView.model';
+import { AlertsService } from 'src/app/service/alerts.service';
 import { MostViewAdminService } from 'src/app/service/most-view-admin.service';
 import { MostViewService } from 'src/app/service/most-view.service';
 import { appSetSlogan } from 'src/app/store/app.actions';
@@ -46,6 +46,9 @@ export class MostViewAdminComponent implements OnInit, OnDestroy {
 
     //Inyeccion del store
     private store: Store,
+
+    //Inyección del servicio de alerta
+    private sweetAlert : AlertsService
   ) { }
 
   ngOnInit(): void {
@@ -60,7 +63,7 @@ export class MostViewAdminComponent implements OnInit, OnDestroy {
       console.log(this.allMovies);
       //Esto controla el error en caso de que ocurra alguno, y le avisa al usuario
     }, (err) => {
-      alert('There is an error at mostViewComponent');
+      this.subscription.add(this.sweetAlert.alert('Error!','There is an error at mostViewComponent'));
     }
     ));
   }
@@ -132,9 +135,9 @@ export class MostViewAdminComponent implements OnInit, OnDestroy {
       }
 
       this.subscription.add(this.adminService.updateMovies(this.movie).subscribe(data => {
-        alert('movie edited: ' + data)
+        this.subscription.add(this.sweetAlert.goodAlert('Good!','movie edited succeessfully'));
         }, (err) => {
-          alert('There is an Error at mostViewAdminComponent');
+          this.subscription.add(this.sweetAlert.alert('Error!','There is an Error at mostViewAdminComponent'));
         }
       ));
 
@@ -142,7 +145,7 @@ export class MostViewAdminComponent implements OnInit, OnDestroy {
       this.updateForm.reset();
 
     } else {
-      alert ('You are looking for an unexisting movie');
+      this.subscription.add(this.sweetAlert.alert('Wrong!','You are looking for an unexisting movie'));
     }
   }
 
@@ -161,7 +164,7 @@ export class MostViewAdminComponent implements OnInit, OnDestroy {
       }
     ).subscribe(data => {
       console.log(data);
-      alert('Movie created')
+      this.subscription.add(this.sweetAlert.goodAlert('Success', 'Movie created'))
     }));
 
     //reseteo de todo el formulario
@@ -172,11 +175,13 @@ export class MostViewAdminComponent implements OnInit, OnDestroy {
   deleteMovie(){
     this.subscription.add(this.adminService.deleteMovie(String(this.deleteForm.controls['id'].value)).subscribe(
       data => {
-        alert(data);
+        console.log(data);
+        this.subscription.add(this.sweetAlert.goodAlert('Success', 'Movie eliminated'));
         //Controlamos el error
       }, (err) => {
         console.log(err);
-        alert('You are eliminating an unexisting movie or there is an error at MostViewAdminService');
+        this.subscription.add(this.sweetAlert
+          .alert('Wrong', 'You are eliminating an unexisting movie or there is an error at MostViewAdminService'));
       }
     ));
 
@@ -187,7 +192,9 @@ export class MostViewAdminComponent implements OnInit, OnDestroy {
   //Metodo para validar que ingrese un id corret
   idQuantity() {
     if((this.updateForm.controls['id'].value) < 0  || (this.deleteForm.controls['id'].value < 0)){
-      alert('Put only natural numbers (0 included)');
+
+      //avisamos el error
+      this.subscription.add(this.sweetAlert.alert('Error!', 'Put only natural numbers (0 included)'))
 
       this.updateForm.controls['id'].reset();
       this.deleteForm.controls['id'].reset();

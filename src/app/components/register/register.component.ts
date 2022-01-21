@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { IUser } from 'src/app/models/user.model';
+import { AlertsService } from 'src/app/service/alerts.service';
 import { RegisterService } from 'src/app/service/register.service';
 import { appSetSlogan } from 'src/app/store/app.actions';
 
@@ -33,6 +34,9 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
     //Inyeccion del store
     private store: Store,
+
+    //Alertas
+    private sweetAlert : AlertsService,
   ) { }
 
   //Variable para la suscripción de eventos
@@ -81,10 +85,10 @@ export class RegisterComponent implements OnInit, OnDestroy {
     //Si no estaba registrado, lo dejamos
     if(!this.flag) {
       this.allUsers.push(this.user);
-      alert('You are successfully registered');
+      this.subscription.add(this.sweetAlert.goodAlert('Welcome!', 'You are successfully registered'));
     //Si estaba registrado, lo cortamos
     } else {
-      alert('This mail already exits!');
+      this.subscription.add(this.sweetAlert.alert('Not cool buddy', 'This mail already exits!'));
     }
 
     //reseteo de todo el formulario

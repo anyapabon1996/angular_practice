@@ -3,6 +3,7 @@ import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { ICart } from 'src/app/models/cart.model';
 import { IMostViewMovies } from 'src/app/models/mostView.model';
+import { AlertsService } from 'src/app/service/alerts.service';
 import { CartService } from 'src/app/service/cart.service';
 import { MostViewService } from 'src/app/service/most-view.service';
 import { appSetSlogan } from 'src/app/store/app.actions';
@@ -41,6 +42,9 @@ export class MostViewComponent implements OnInit, OnDestroy {
 
     //Inyeccion del store
     private store: Store,
+
+    //Inyeccion de alertas
+    private sweetAlert : AlertsService,
   ) { }
 
   ngOnInit(): void {
@@ -54,7 +58,7 @@ export class MostViewComponent implements OnInit, OnDestroy {
       this.allMovies = movies;
       console.log(this.allMovies);
     }, (err) => {
-      alert('There is an error at mostViewComponent');
+      this.subscription.add(this.sweetAlert.alert('Error!', 'There is an error at mostViewComponent'));
     }));
 
     this.subscription.add(this.cartService.getCartMovies().subscribe(data => {
@@ -80,14 +84,14 @@ export class MostViewComponent implements OnInit, OnDestroy {
       this.movieToCart.url = this.allMovies[index].image;
 
       this.subscription.add(this.cartService.postMovieInCar(this.movieToCart).subscribe(data => {
-        alert('Movie aded to cart');
+        this.subscription.add(this.sweetAlert.goodAlert('Good choice!', 'Movie aded to cart'));
       }));
 
       this.allMoviesInCart.push(this.movieToCart);
 
     //si existe dentro del carrito, lanzamos el mensaje de error
     } else {
-      alert('This movie already exist');
+      this.subscription.add(this.sweetAlert.warningAlert('Hey!', 'This movie already exists in your cart'));
     }
   }
 

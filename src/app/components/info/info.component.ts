@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { ICart } from 'src/app/models/cart.model';
 import { IOnlyMovie } from 'src/app/models/movie.model';
+import { AlertsService } from 'src/app/service/alerts.service';
 import { CartService } from 'src/app/service/cart.service';
 import { InfoService } from 'src/app/service/info.service';
 import { appSetSlogan } from 'src/app/store/app.actions';
@@ -31,6 +32,9 @@ export class InfoComponent implements OnInit , OnDestroy{
 
     //Inyeccion del store
     private store : Store,
+
+    //Inyección de las alertas
+    private sweetAlert : AlertsService,
   ) { }
 
   //Variable suscripcion
@@ -61,12 +65,16 @@ export class InfoComponent implements OnInit , OnDestroy{
     //Pasamos la peli del evento click
     this.subscription.add(this.infoService.getMovieById(this.activatedRouter.snapshot.params['id']).
       subscribe(movies => {
+
           if (movies != undefined){
             this.movie = movies;
             console.log(this.movie);
+          } else {
+          this.subscription.add(this.sweetAlert.alert('Error!', 'This movie do not exists'));
           }
-          else alert ("This movie doesn't exits")
-        }));
+
+      })
+    );
 
     this.cartService.getCartMovies().subscribe(movie => this.allMoviesInCart = movie);
   }
@@ -92,9 +100,9 @@ export class InfoComponent implements OnInit , OnDestroy{
 
     if (index == -1) {
       this.allMoviesInCart.push(this.movieToCart);
-      alert('Movie added to cart');
+      this.subscription.add(this.sweetAlert.goodAlert('Good!', 'Movie added to cart'));
     }
-    else alert ('This movies is aleready in your cart');
+    else this.subscription.add(this.sweetAlert.warningAlert('Hey!', 'This movies is aleready in your cart'));
 
   };
 
