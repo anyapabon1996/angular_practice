@@ -17,7 +17,7 @@ export class MoviesService {
 
   //Variable conexion con API
   //Por elección, quiero que aparezcan las primeras 10 pelis de harry potter
-  private firstTenMovies = 'Harry Potter';
+  private firstTenMovies = 'pirates';
   private union = '?s=';
   private url = environment.movieAPIfisrtPart + this.union + this.firstTenMovies + environment.apiKey;
   private unionTitle = '?t=';
