@@ -1,6 +1,6 @@
 //Este archivo solo se usa apra hacear test
 import { Observable, of } from "rxjs";
-import { IMostViewMovies } from "../models/mostView.model";
+import { IMostViewMovies } from "../../../../models/mostView.model";
 
 export const adminMock = {
 

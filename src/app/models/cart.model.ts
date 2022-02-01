@@ -4,5 +4,5 @@ export interface ICart {
   url : string,
   imdbID : string,
   price : number,
-  exists : boolean
+  exists : boolean,
 }

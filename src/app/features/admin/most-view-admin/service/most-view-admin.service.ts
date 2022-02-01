@@ -1,12 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { IMostViewMovies } from 'src/app/models/mostView.model';
 import { environment } from 'src/environments/environment';
-import { IMostViewMovies } from '../models/mostView.model';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
+
 export class MostViewAdminService {
 
   //variable conexion con la API

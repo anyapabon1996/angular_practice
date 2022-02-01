@@ -5,6 +5,7 @@ import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { IMovies } from 'src/app/models/movie.model';
 import { AlertsService } from 'src/app/service/alerts.service';
+import { MetaService } from 'src/app/service/meta.service';
 import { MoviesService } from 'src/app/service/movies.service';
 import { appSetSlogan } from 'src/app/store/app.actions';
 
@@ -28,6 +29,9 @@ export class MoviesComponent implements OnInit, OnDestroy {
 
     //Alertas
     private sweetAlert : AlertsService,
+
+    //Inyeccion del servicio para actualizar metas
+    private metaService: MetaService,
 
   ) { }
 
@@ -69,7 +73,9 @@ export class MoviesComponent implements OnInit, OnDestroy {
       }, (err => {
           this.subscription.add(this.sweetAlert.alert('Error!', 'Theres an ERROR!!!'));
       })));
-    }
+    };
+
+    this.metaService.updateTitle();
   };
 
     //Funcion que devuelve el objeto de la pelicula buscada

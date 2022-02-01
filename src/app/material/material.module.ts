@@ -4,8 +4,7 @@ import { MoviesService } from '../service/movies.service';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
-
-
+import { MostViewAdminService } from '../features/admin/most-view-admin/service/most-view-admin.service';
 
 
 @NgModule({
@@ -22,7 +21,7 @@ import {MatButtonModule} from '@angular/material/button';
   providers: [
     MoviesService,
     MatIconModule,
-    MatButtonModule
+    MatButtonModule,
   ]
 })
 export class MaterialModule { }

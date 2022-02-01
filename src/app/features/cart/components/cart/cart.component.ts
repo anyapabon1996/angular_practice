@@ -1,10 +1,13 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { Subscription } from 'rxjs';
+import { select, Store } from '@ngrx/store';
+import { Observable, Subscription, tap } from 'rxjs';
 import { ICart } from 'src/app/models/cart.model';
 import { AlertsService } from 'src/app/service/alerts.service';
-import { CartService } from 'src/app/service/cart.service';
 import { appSetSlogan } from 'src/app/store/app.actions';
+import { CartService } from '../../service/cart.service';
+import { ICartState } from '../../store/cart-store.model';
+import { deleteItemFromCart } from '../../store/cart.actions';
+import { cartSelector } from '../../store/cart.selector';
 
 @Component({
   selector: 'app-cart',
@@ -12,6 +15,9 @@ import { appSetSlogan } from 'src/app/store/app.actions';
   styleUrls: ['./cart.component.scss']
 })
 export class CartComponent implements OnInit, OnDestroy {
+
+  //Esta variable contedrá todo lo que tiene el store
+  cartItems$!: Observable<ICartState>;
 
   constructor(
     //Inyeccion del servicio cart
@@ -22,6 +28,9 @@ export class CartComponent implements OnInit, OnDestroy {
 
     //Inyección de las alertas
     private sweetAlert : AlertsService,
+
+    //Inyectamos el store del carrito
+    private cartStore : Store<ICartState>
   ) { }
 
   //Variable subscripcion
@@ -39,36 +48,41 @@ export class CartComponent implements OnInit, OnDestroy {
       appSetSlogan({slogan: 'Masterpices chosen by you to enrich your emotional, moral and historical skills and knowledge'})
       );
 
-    //Suscribimos eventos
-    this.subcription.add(this.cartService.getCartMovies().subscribe(data => {
+    //Esto de acá agarra todo lo que tiene el store
+    this.cartItems$ = this.store.pipe(
+      select(cartSelector),
+      tap(data => console.log(data))
+    );
 
-      //Pasamos todas las pelis guardada en la API al carrito
-      this.allMoviesInCart = data;
+    //Traemos todas las pelis que están en el estado del carrito
+    this.cartItems$.subscribe(res => {
+      console.log(res.cartItems),
+      this.allMoviesInCart = res.cartItems
+    });
 
-      //Suma
-      this.allMoviesInCart.forEach(m => {
-        this.totalToPay += m.price;
-      });
+    //Suma
+    this.allMoviesInCart.forEach(m => {
+      this.totalToPay += m.price;
+    });
 
-      console.log(this.allMoviesInCart);
-    }));
+    console.log(this.cartItems$);
+
   }
 
   //Metodo para borrar de la API
   deleteMovies(id : string) {
 
-    this.subcription.add(
-      this.cartService.deleteMovie(id).subscribe(data => console.log(data))
-      );
+    //eliminamos usando el metodo de
+    this.cartStore.dispatch(deleteItemFromCart({itemID: id}));
 
-      //Renderizacion de pagina
-      let index = this.allMoviesInCart.findIndex(m => m.imdbID == id);
+    //Renderizacion de pagina
+    let index = this.allMoviesInCart.findIndex(m => m.imdbID == id);
 
-      //restamos el importe
-      this.totalToPay -= this.allMoviesInCart[index].price;
+    //restamos el importe
+    this.totalToPay -= this.allMoviesInCart[index].price;
 
-      //Eliminamos visualmente del front inmediato
-      this.allMoviesInCart.splice(index, 1);
+    //Eliminamos visualmente del front inmediato
+    this.allMoviesInCart.splice(index, 1);
   };
 
   //Función que elimina todo del carrito
@@ -76,11 +90,9 @@ export class CartComponent implements OnInit, OnDestroy {
 
     //Llamamos al servicio
     this.allMoviesInCart.forEach(movie =>{
-      this.subcription.add(this.cartService.deleteMovie(movie.imdbID).subscribe(
-        movieEliminated => {
-          console.log(movieEliminated + " has been eliminated");
-        }
-      ))
+
+      //Borrado masivo con store
+      this.cartStore.dispatch(deleteItemFromCart({itemID: movie.imdbID}));
     });
 
     //Alerta e que todo salió ok

@@ -56,6 +56,6 @@ export class IntereptorService implements HttpInterceptor {
       ${error.message}`)
     }
 
-    return throwError(() => 'HTTP comunication ERROR');
+    return throwError(() => 'HTTP comunication ERROR desde interceptor');
   }
 }

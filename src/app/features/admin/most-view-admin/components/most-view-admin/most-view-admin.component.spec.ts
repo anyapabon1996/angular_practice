@@ -1,8 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { adminMock } from 'src/app/service/admin.service.mock';
-import { MostViewAdminService } from 'src/app/service/most-view-admin.service';
+import { adminMock } from 'src/app/features/admin/most-view-admin/service/admin.service.mock';
 import { MostViewService } from 'src/app/service/most-view.service';
 import { MostViewMockService } from 'src/app/service/mostViewMock.service.mock';
+import { MostViewAdminService } from '../../service/most-view-admin.service';
 
 import { MostViewAdminComponent } from './most-view-admin.component';
 

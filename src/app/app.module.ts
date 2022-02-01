@@ -11,13 +11,14 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material/material.module';
 import { InfoComponent } from './components/info/info.component';
-import { CartComponent } from './components/cart/cart.component';
 import { LoginComponent } from './components/login/login.component';
 import { MostViewComponent } from './components/most-view/most-view.component';
-import { MostViewAdminComponent } from './components/most-view-admin/most-view-admin.component';
 import { IntereptorService } from './interceptors/intereptor.service';
 import { StoreModule } from '@ngrx/store';
-import { appReducer } from './store/app.reducer'
+import { appReducer } from './store/app.reducer';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../environments/environment'
+import { EffectsModule } from '@ngrx/effects';
 
 
 @NgModule({
@@ -27,10 +28,8 @@ import { appReducer } from './store/app.reducer'
     MoviesComponent,
     MenuComponent,
     InfoComponent,
-    CartComponent,
     LoginComponent,
     MostViewComponent,
-    MostViewAdminComponent
   ],
   imports: [
     BrowserModule,
@@ -39,7 +38,9 @@ import { appReducer } from './store/app.reducer'
     HttpClientModule,
     BrowserAnimationsModule,
     MaterialModule,
+    EffectsModule.forRoot([]),
     StoreModule.forRoot({ app: appReducer } , {}),
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
   ],
   providers: [
     //Esto alude al servicio del interceptor

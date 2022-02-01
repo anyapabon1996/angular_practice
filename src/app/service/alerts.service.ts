@@ -34,12 +34,12 @@ export class AlertsService {
     });
   };
 
-  //Función de tipo alerta
+  //Función de tipo warning
   warningAlert(title: string, message: string){
     Swal.fire({
       title: `<h3 class="alert-title">${title}</h3>`,
       html: `<span class="alert-text">${message}</span>`,
-      icon: 'warning', //tipo de icono
+      icon: 'warning',
       backdrop: true,
       timer: 2000,
       showConfirmButton: false,
