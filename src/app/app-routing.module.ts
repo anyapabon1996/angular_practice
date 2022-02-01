@@ -1,9 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CartComponent } from './components/cart/cart.component';
 import { InfoComponent } from './components/info/info.component';
 import { LoginComponent } from './components/login/login.component';
-import { MostViewAdminComponent } from './components/most-view-admin/most-view-admin.component';
 import { MostViewComponent } from './components/most-view/most-view.component';
 import { MoviesComponent } from './components/movies/movies.component';
 import { RegisterComponent } from './components/register/register.component';
@@ -14,35 +12,42 @@ const routes: Routes = [
   {
     path: 'admin',
     canActivate: [AdminRoleGuard],
-    component: MostViewAdminComponent
+    loadChildren: () => import('./features/admin/most-view-admin/most-view-admin.module').then(ad => ad.MostViewAdminModule),
+    data: {title: 'Admin'}
   },
   {
     path: 'mostViews',
     canActivate: [ProtectedGuardGuard],
-    component: MostViewComponent
+    component: MostViewComponent,
+    data: {title: 'Most Viewed'}
   },
   {
     path: 'login',
-    component: LoginComponent
+    component: LoginComponent,
+    data: {title: 'Login'}
   },
   //No se puede acceder a la informacion de la pelicula a menos que esté logueado
   {
     path: 'infoMovie/:id',
     canActivate: [ProtectedGuardGuard],
-    component: InfoComponent
+    component: InfoComponent,
+    data: {title: 'Specific Info'}
   },
   {
     path: 'movie',
-    component: MoviesComponent
+    component: MoviesComponent,
+    data: {title: 'Movies'}
   },
   {
     path: 'register',
-    component: RegisterComponent
+    component: RegisterComponent,
+    data: {title: 'Register'}
   },
   {
     path: 'cart',
     canActivate: [ProtectedGuardGuard],
-    component: CartComponent
+    loadChildren: () => import('./features/cart/cart.module').then(car => car.CartModule),
+    data: {title: 'Your Cart'}
   },
   {
     path: '',

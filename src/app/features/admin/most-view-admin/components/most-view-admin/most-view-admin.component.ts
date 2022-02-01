@@ -4,9 +4,9 @@ import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { IMostViewMovies } from 'src/app/models/mostView.model';
 import { AlertsService } from 'src/app/service/alerts.service';
-import { MostViewAdminService } from 'src/app/service/most-view-admin.service';
 import { MostViewService } from 'src/app/service/most-view.service';
 import { appSetSlogan } from 'src/app/store/app.actions';
+import { MostViewAdminService } from '../../service/most-view-admin.service';
 
 @Component({
   selector: 'app-most-view-admin',

@@ -60,5 +60,17 @@ export class LoginService {
     }
   }
 
+  logout(): any {
+    this.token = null;
+    this.user = '';
+    this.userName = '';
+    this.role = '';
 
+    return {
+      token: this.token,
+      user: this.user,
+      userName: this.userName,
+      role: this.role
+    }
+  }
 }

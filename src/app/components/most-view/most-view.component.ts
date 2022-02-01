@@ -1,10 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
+import { CartService } from 'src/app/features/cart/service/cart.service';
 import { ICart } from 'src/app/models/cart.model';
 import { IMostViewMovies } from 'src/app/models/mostView.model';
 import { AlertsService } from 'src/app/service/alerts.service';
-import { CartService } from 'src/app/service/cart.service';
 import { MostViewService } from 'src/app/service/most-view.service';
 import { appSetSlogan } from 'src/app/store/app.actions';
 

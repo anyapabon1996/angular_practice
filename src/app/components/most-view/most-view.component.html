@@ -1,23 +1,23 @@
-<mat-card class="most-viewed-card">
-  <div class="card general-container" style="width: 25rem;" *ngFor="let movie of allMovies">
-    <div class="col container">
-      <mat-card-header class="header-container">
-        <mat-card-title class="title">{{movie.title}}</mat-card-title>
-        <mat-card-subtitle>{{movie.genre}}</mat-card-subtitle>
-      </mat-card-header>
-      <div class="img-container">
-        <img mat-card-image [src]="movie.image" [alt]="movie.title">
-      </div>
-      <mat-card-content>
-        <p>
-         {{movie.description}}
-        </p>
-      </mat-card-content>
-      <mat-card-actions>
-        <button mat-button>LIKE</button>
-        <button mat-button (click)="addToCart(movie.id)">ADD TO CART</button>
-      </mat-card-actions>
+<section class="row d-flex justify-content-evenly">
+
+  <div class="card movie-card" *ngFor="let movie of allMovies;  let i = index">
+
+    <div class="card-body">
+      <h5 class="card-title text-center">{{movie.title}}</h5>
+      <p class="card-text">{{movie.genre}}</p>
+    </div>
+
+    <img [src]="movie.image" class="movie-img" [alt]="movie.title">
+
+    <div class="card-body">
+      <p class="card-text text-center">{{movie.description}}</p>
+    </div>
+
+    <div class="btn-container text-center">
+      <button mat-button (click)="addToCart(movie.id)">ADD TO CART</button>
     </div>
 
   </div>
-</mat-card>
+
+</section>
+

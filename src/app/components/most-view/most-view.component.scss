@@ -1,31 +1,23 @@
-.most-viewed-card {
-  max-width: 400px;
+section{
 
-  .general-container {
+  .movie-card {
 
+    margin: 1rem 2rem;
+    width: 16rem;
 
-    margin-bottom: 2rem;
-    .container {
+    .card-body {
 
-      .header-container{
-
-        .title {
-          padding-top: 2rem;
-          padding-bottom: 1rem;
-          text-align: center;
-        }
+      h5 {
+        text-align: center;
+        font-size: 1rem;
+        font-weight: bolder;
       }
 
-      .img-container {
-        text-align: center;
-
-        img{
-          width: 20rem;
-        }
+      p{
+        text-align: start;
+        font-weight: lighter;
       }
     }
   }
 }
-
-
 

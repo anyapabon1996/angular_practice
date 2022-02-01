@@ -2,12 +2,15 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
+import { CartService } from 'src/app/features/cart/service/cart.service';
+import { ICartState } from 'src/app/features/cart/store/cart-store.model';
+import { addItemToCart } from 'src/app/features/cart/store/cart.actions';
 import { ICart } from 'src/app/models/cart.model';
 import { IOnlyMovie } from 'src/app/models/movie.model';
 import { AlertsService } from 'src/app/service/alerts.service';
-import { CartService } from 'src/app/service/cart.service';
 import { InfoService } from 'src/app/service/info.service';
 import { appSetSlogan } from 'src/app/store/app.actions';
+import { ICartItem } from './../../features/cart/cart.model'
 
 @Component({
   selector: 'app-info',
@@ -35,6 +38,9 @@ export class InfoComponent implements OnInit , OnDestroy{
 
     //Inyección de las alertas
     private sweetAlert : AlertsService,
+
+    //Inyectamos lo que sería el store de carrito
+    private cartStore : Store<ICartState>,
   ) { }
 
   //Variable suscripcion
@@ -72,7 +78,6 @@ export class InfoComponent implements OnInit , OnDestroy{
           } else {
           this.subscription.add(this.sweetAlert.alert('Error!', 'This movie do not exists'));
           }
-
       })
     );
 
@@ -88,11 +93,11 @@ export class InfoComponent implements OnInit , OnDestroy{
     this.movieToCart.price = 500;
     this.movieToCart.imdbID = this.movie.imdbID;
 
-    this.subscription.add(
-      this.cartService.postMovieInCar(this.movieToCart).subscribe(data => {
-        console.log('data:' + data)
-      })
-    );
+    const cartItem: ICartItem = this.movieToCart;
+
+    //Esto de acá tiene lo que sería item: cartItem, lo tenemos que pasar así, porque en las acciones, nosotros le definimos que va a reibir un item
+    this.cartStore.dispatch(addItemToCart({ cartContentitem: cartItem }));
+
 
     //TODO ESTO QUE ESTA ACA, QUE ES PARA TIRAR UN ALERT, NO LO QUIERO HACER!
     //La idea es usar la propiedad exists
@@ -102,7 +107,7 @@ export class InfoComponent implements OnInit , OnDestroy{
       this.allMoviesInCart.push(this.movieToCart);
       this.subscription.add(this.sweetAlert.goodAlert('Good!', 'Movie added to cart'));
     }
-    else this.subscription.add(this.sweetAlert.warningAlert('Hey!', 'This movies is aleready in your cart'));
+    else this.subscription.add(this.sweetAlert.warningAlert('Hey!', 'This movie is aleready in your cart'));
 
   };
 
