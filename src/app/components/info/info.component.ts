@@ -50,16 +50,6 @@ export class InfoComponent implements OnInit , OnDestroy{
   movie! : IOnlyMovie;
 
   //Variable auxiliar
-  movieToCart : ICart = {
-    id : '',
-    title : '',
-    url : '',
-    price : 0,
-    imdbID : '',
-    exists: false
-  }
-
-  //Variable auxiliar
   allMoviesInCart : ICart[] = [];
 
   ngOnInit(): void {
@@ -86,14 +76,24 @@ export class InfoComponent implements OnInit , OnDestroy{
 
   addToCart(){
 
-    console.log(this.movieToCart);
+      //Variable auxiliar
+    let movieToCart : ICart = {
+      id : '',
+      title : '',
+      url : '',
+      price : 0,
+      imdbID : '',
+      exists: false
+    }
 
-    this.movieToCart.title = this.movie.Title;
-    this.movieToCart.url = this.movie.Poster;
-    this.movieToCart.price = 500;
-    this.movieToCart.imdbID = this.movie.imdbID;
+    console.log(movieToCart);
 
-    const cartItem: ICartItem = this.movieToCart;
+    movieToCart.title = this.movie.Title;
+    movieToCart.url = this.movie.Poster;
+    movieToCart.price = 500;
+    movieToCart.imdbID = this.movie.imdbID;
+
+    let cartItem: ICartItem = movieToCart;
 
     //Esto de acá tiene lo que sería item: cartItem, lo tenemos que pasar así, porque en las acciones, nosotros le definimos que va a reibir un item
     this.cartStore.dispatch(addItemToCart({ cartContentitem: cartItem }));
@@ -101,10 +101,10 @@ export class InfoComponent implements OnInit , OnDestroy{
 
     //TODO ESTO QUE ESTA ACA, QUE ES PARA TIRAR UN ALERT, NO LO QUIERO HACER!
     //La idea es usar la propiedad exists
-    let index = this.allMoviesInCart.findIndex(index => index.imdbID == this.movieToCart.imdbID);
+    let index = this.allMoviesInCart.findIndex(index => index.imdbID == movieToCart.imdbID);
 
     if (index == -1) {
-      this.allMoviesInCart.push(this.movieToCart);
+      this.allMoviesInCart.push(movieToCart);
       this.subscription.add(this.sweetAlert.goodAlert('Good!', 'Movie added to cart'));
     }
     else this.subscription.add(this.sweetAlert.warningAlert('Hey!', 'This movie is aleready in your cart'));

@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
+import { ICartState } from 'src/app/features/cart/store/cart-store.model';
 import { LoginService } from 'src/app/service/login.service';
 import { appSetSlogan } from 'src/app/store/app.actions';
 
@@ -24,6 +25,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
     //inyeccion del store
     private store: Store,
+
   ) { }
 
   ngOnInit(): void {
@@ -43,11 +45,14 @@ export class LoginComponent implements OnInit, OnDestroy {
       valid => {
         if (valid){
           this.router.navigate(['movie']);
+
         } else {
           this.error = 'Invalid User or Password';
         }
       }
     ));
+
+
   }
 
   ngOnDestroy(): void {

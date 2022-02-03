@@ -1,5 +1,4 @@
 import { createAction, props } from "@ngrx/store";
-import { ICart } from "src/app/models/cart.model";
 import { ICartItem } from "../cart.model";
 
 //Agrega un elemtno ed topo ICart
@@ -14,12 +13,14 @@ export const deleteItemFromCart = createAction(
   props<{itemID: string}>()
 );
 
-export const setCartContent = createAction(
-  'Cart - Set Cart Content',
-  props<{cartItems: ICartItem[]}>()
+//Borra todo del carrito
+export const deleteAllFromCart = createAction(
+  'Cart - Clear all'
 );
 
-//elimina todo. No hace falta un props porque no recibe ningún parámetro. Me parece q yo no lo uso porque elimino de a una por una
-// export const deleteAll = createAction(
-//   'Cart - Clear all'
-// );
+//Setea el contenido
+export const setCartContent = createAction(
+  'Cart - Set Cart Content',
+  props<{status: string, cartItems: ICartItem[]}>()
+);
+

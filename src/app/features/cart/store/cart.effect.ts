@@ -1,11 +1,9 @@
-import { ThisReceiver } from "@angular/compiler";
 import { Injectable } from "@angular/core";
-import { Actions, createEffect, ofType } from "@ngrx/effects";
+import { act, Actions, createEffect, ofType } from "@ngrx/effects";
 import { map, switchMap } from "rxjs";
-import { ICart } from "src/app/models/cart.model";
 import { ICartItem } from "../cart.model";
 import { CartService } from "../service/cart.service";
-import { addItemToCart, deleteItemFromCart, setCartContent } from "./cart.actions";
+import { addItemToCart, deleteAllFromCart, deleteItemFromCart, setCartContent } from "./cart.actions";
 
 @Injectable()
 export class CartEffect {
@@ -22,7 +20,7 @@ export class CartEffect {
     this.action.pipe(
       ofType(addItemToCart),
       switchMap(act => this.cartService.postMovieInCar(act.cartContentitem)),
-      map(data => setCartContent({cartItems: data.cartContent as ICartItem[]}))
+      map(data => setCartContent({status: data.status, cartItems: data.cartContent as ICartItem[]}))
     )
   );
 
@@ -30,7 +28,15 @@ export class CartEffect {
       this.action.pipe(
         ofType(deleteItemFromCart),
         switchMap(act => this.cartService.deleteMovie(act.itemID)),
-        map(data => setCartContent({cartItems: data.cartContent as ICartItem[]}))
+        map(data => setCartContent({status: data.status, cartItems: data.cartContent as ICartItem[]}))
       )
   );
+
+  deleteAllFromCart$ = createEffect( () =>
+        this.action.pipe(
+          ofType(deleteAllFromCart),
+          switchMap(act => this.cartService.deleteAllMovies()),
+          map(data => setCartContent({status: data.status, cartItems: data.cartContent as ICartItem[]}))
+        )
+  )
 }

@@ -4,9 +4,8 @@ import { Observable, Subscription, tap } from 'rxjs';
 import { ICart } from 'src/app/models/cart.model';
 import { AlertsService } from 'src/app/service/alerts.service';
 import { appSetSlogan } from 'src/app/store/app.actions';
-import { CartService } from '../../service/cart.service';
 import { ICartState } from '../../store/cart-store.model';
-import { deleteItemFromCart } from '../../store/cart.actions';
+import { deleteAllFromCart, deleteItemFromCart } from '../../store/cart.actions';
 import { cartSelector } from '../../store/cart.selector';
 
 @Component({
@@ -19,10 +18,10 @@ export class CartComponent implements OnInit, OnDestroy {
   //Esta variable contedrá todo lo que tiene el store
   cartItems$!: Observable<ICartState>;
 
-  constructor(
-    //Inyeccion del servicio cart
-    private cartService : CartService,
+  //Varaible control
+  status: string = '';
 
+  constructor(
     //Inyeccion para trabajar con mi store/redux
     private store : Store,
 
@@ -56,8 +55,11 @@ export class CartComponent implements OnInit, OnDestroy {
 
     //Traemos todas las pelis que están en el estado del carrito
     this.cartItems$.subscribe(res => {
-      console.log(res.cartItems),
-      this.allMoviesInCart = res.cartItems
+      console.log(res.cartItems);
+      this.allMoviesInCart = res.cartItems;
+      this.status = res.status;
+
+      console.log(this.status);
     });
 
     //Suma
@@ -88,12 +90,8 @@ export class CartComponent implements OnInit, OnDestroy {
   //Función que elimina todo del carrito
   deleteAll(){
 
-    //Llamamos al servicio
-    this.allMoviesInCart.forEach(movie =>{
-
-      //Borrado masivo con store
-      this.cartStore.dispatch(deleteItemFromCart({itemID: movie.imdbID}));
-    });
+    //Eliminamos todas las peliculas
+    this.cartStore.dispatch(deleteAllFromCart());
 
     //Alerta e que todo salió ok
     this.subcription.add(this.sweetAlert.goodAlert('Success','Your cart has been emptied'));
