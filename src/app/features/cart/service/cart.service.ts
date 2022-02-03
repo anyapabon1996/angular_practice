@@ -28,17 +28,6 @@ export class CartService {
   postMovieInCar(movie : ICart){
 
     return this.httpClient.post<any>(this.url, movie)
-    // .pipe(
-    //   map(res => {
-    //     console.log('LA RESPUESTA ES' + res);
-    //     if (res.id === 'NOT OK') {
-    //       return false
-    //     } else {
-    //       return true
-    //     }
-    //   }
-    //   )
-    // )
   }
 
   //Metodo delete: elimina del carrito
@@ -47,4 +36,9 @@ export class CartService {
     return this.httpClient.delete<any>(`${this.url}?id=${id}`);
   }
 
+  //Metodo para borrar todo del carrito
+  deleteAllMovies(){
+    return this.httpClient.delete<any>(`${this.url}/deleteAll`);
   }
+
+}
