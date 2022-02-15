@@ -9,7 +9,7 @@
         <a class="nav-link" routerLinkActive="active" routerLink="movie">Movies</a>
         <a class="nav-link" routerLinkActive="active" routerLink="cart">Cart</a>
         <a class="nav-link" routerLinkActive="active" routerLink="mostViews">Most Views</a>
-        <a class="nav-link" routerLinkActive="active" routerLink="admin">Admin</a>
+        <a *ngIf="role==='admin'" class="nav-link" routerLinkActive="active" routerLink="admin">Admin</a>
 
         <div class="logout">
           <span (click)="logout()">logout</span>

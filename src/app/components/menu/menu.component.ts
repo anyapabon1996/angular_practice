@@ -6,6 +6,8 @@ import { ICartState } from 'src/app/features/cart/store/cart-store.model';
 import { deleteAllFromCart } from 'src/app/features/cart/store/cart.actions';
 import { AlertsService } from 'src/app/service/alerts.service';
 import { LoginService } from 'src/app/service/login.service';
+import { IMenuState } from 'src/app/store-menu/menu-store.model';
+import { userDisplaySelector } from 'src/app/store-menu/menu.selector';
 import { IAppState } from 'src/app/store/app-store.model';
 import { appSloganSelector } from 'src/app/store/app.selector';
 
@@ -15,6 +17,9 @@ import { appSloganSelector } from 'src/app/store/app.selector';
   styleUrls: ['./menu.component.scss']
 })
 export class MenuComponent implements OnInit {
+
+  state$: Observable<IMenuState> = of({ role: "" });
+  role: string = "";
 
   //Titulo de la página
   title: string = 'Movies Anya';
@@ -36,7 +41,10 @@ export class MenuComponent implements OnInit {
     private router: Router,
 
     //Inyeccion del store de carrito
-    private cartSotre: Store<ICartState>
+    private cartSotre: Store<ICartState>,
+
+    //Inyeccion del servicio login
+    private loginService: LoginService
   ) { }
 
   ngOnInit(): void {
@@ -44,6 +52,14 @@ export class MenuComponent implements OnInit {
     this.slogan$ = this.store.pipe(
       select(appSloganSelector)
     );
+
+    this.state$ = this.store.pipe(
+      select(userDisplaySelector),
+    );
+
+    this.state$.subscribe(state => {
+      this.role = state.role
+    });
   }
 
   logout(){
