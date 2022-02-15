@@ -4,7 +4,9 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { ICartState } from 'src/app/features/cart/store/cart-store.model';
+import { IUserLogin } from 'src/app/models/userLoging';
 import { LoginService } from 'src/app/service/login.service';
+import { removeRole, setRole } from 'src/app/store-menu/menu.actions';
 import { appSetSlogan } from 'src/app/store/app.actions';
 
 @Component({
@@ -19,6 +21,9 @@ export class LoginComponent implements OnInit, OnDestroy {
   //Variable de mensaje
   error : string = '';
 
+  //Variable de usuario logueado
+  user: IUserLogin | any;
+
   constructor(
     private loginService : LoginService,
     private router : Router,
@@ -32,6 +37,8 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.store.dispatch(
       appSetSlogan({slogan: 'Glad to see you again. Login, we must go on!'})
     );
+
+    this.clearRole();
   }
 
   //Formulario de login
@@ -44,6 +51,11 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.subscription.add(this.loginService.validateCredentials(this.loginForm.controls['user'].value, this.loginForm.controls['password'].value).subscribe(
       valid => {
         if (valid){
+
+          this.user = this.loginService.getUserInfo();
+          console.log(this.user);
+
+          this.store.dispatch(setRole({role: this.user.role}));
           this.router.navigate(['movie']);
 
         } else {
@@ -57,6 +69,10 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
       this.subscription.unsubscribe();
+  }
+
+  clearRole(){
+    this.store.dispatch(removeRole());
   }
 
 }

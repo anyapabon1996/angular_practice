@@ -17,7 +17,6 @@ const routes: Routes = [
   },
   {
     path: 'mostViews',
-    canActivate: [ProtectedGuardGuard],
     component: MostViewComponent,
     data: {title: 'Most Viewed'}
   },

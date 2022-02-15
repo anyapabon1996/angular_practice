@@ -19,6 +19,7 @@ import { appReducer } from './store/app.reducer';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment'
 import { EffectsModule } from '@ngrx/effects';
+import { menuReducer } from './store-menu/menu.reducer';
 
 
 @NgModule({
@@ -40,6 +41,7 @@ import { EffectsModule } from '@ngrx/effects';
     MaterialModule,
     EffectsModule.forRoot([]),
     StoreModule.forRoot({ app: appReducer } , {}),
+    StoreModule.forRoot({user: menuReducer}, {}),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
   ],
   providers: [
